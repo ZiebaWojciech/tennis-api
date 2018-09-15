@@ -1,4 +1,4 @@
-package pl.coderslab.feedingtennisapi;
+package pl.coderslab.feedingtennisapi.rest;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

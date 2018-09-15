@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.sql.Date;
 @Entity
 @Getter
+@AllArgsConstructor
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
