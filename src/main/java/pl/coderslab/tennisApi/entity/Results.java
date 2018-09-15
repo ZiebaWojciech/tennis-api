@@ -1,26 +1,32 @@
 package pl.coderslab.tennisApi.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Player {
+public class Results {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
-    private String surname;
-    @Enumerated(EnumType.STRING)
-    private Country countryCode;
-    private Date birthday;
+    @OneToOne
+    private Event event;
+
+    @OneToMany
+    private List<TennisSet> sets = new ArrayList<>();
+    @ManyToOne
+    private Player winner;
+    @ManyToOne
+    private Player looser;
+
 
 }
+
