@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter
@@ -15,13 +15,19 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
     private LocalDateTime timeOfStart;
+    @NotNull
     private Country country;
+    @NotNull
     @ManyToOne
     private Player playerOne;
+    @NotNull
     @ManyToOne
     private Player playerTwo;
+    @NotNull
     private EventStatus status;
+    @NotNull
     @OneToOne(mappedBy = "event")
-    private Results results;
+    private Result result;
 }

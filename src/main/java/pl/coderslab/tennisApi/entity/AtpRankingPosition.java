@@ -3,16 +3,17 @@ package pl.coderslab.tennisApi.entity;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "atp_ranking")
 @Getter
-public class AtpRanking {
+public class AtpRankingPosition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private Date date;
+    private LocalDate date;
     @OneToOne
     private Player player;
     private int points;

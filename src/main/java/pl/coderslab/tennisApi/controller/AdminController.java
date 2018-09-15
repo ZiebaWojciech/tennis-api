@@ -2,8 +2,12 @@ package pl.coderslab.tennisApi.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.coderslab.tennisApi.entity.Event;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -13,9 +17,4 @@ public class AdminController {
         return "admin_page";
     }
 
-    @RequestMapping(path = "/create-event", method = RequestMethod.GET)
-    public String createEvent(Model model) {
-        model.addAttribute("event", )
-        return "create_event";
-    }
 }

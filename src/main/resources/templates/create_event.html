@@ -5,6 +5,39 @@
     <title>Admin page</title>
 </head>
 <body>
-    <a th:href="@{/admin/create-event}" th:text="'Create new event'"></a>
+<form th:action="@{/admin/create/event}" method="post" th:object="${event}">
+    <p>Country of the event:
+        <select th:field="*{country}">
+            <option value=""> -- </option>
+            <option th:each="country : ${countries}" th:value="${country}" th:text="${country}"></option>
+        </select>
+    </p>
+    <p th:if="${#fields.hasErrors('country')}" th:errors="*{country}">country Error</p>
+    <p>Status:
+        <select th:field="*{status}">
+            <option value=""> -- </option>
+            <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"/>
+        </select>
+    </p>
+    <p th:if="${#fields.hasErrors('status')}" th:errors="*{status}">status Error</p>
+    <p>Start of event: <input th:type="datetime-local" th:field="*{timeOfStart}"/></p>
+    <p th:if="${#fields.hasErrors('timeOfStart')}" th:errors="*{timeOfStart}">timeOfStart Error</p>
+    <p>Player one:
+        <select th:field="*{playerOne}">
+            <option value=""> -- </option>
+            <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}+' '+${player.surname}"/>
+        </select>
+    </p>
+    <p th:if="${#fields.hasErrors('playerOne')}" th:errors="*{playerOne}">playerOne Error</p>
+    <p>Player two:
+        <select th:field="*{playerTwo}">
+            <option value=""> -- </option>
+            <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}+' '+${player.surname}"/>
+        </select>
+    </p>
+    <p th:if="${#fields.hasErrors('playerTwo')}" th:errors="*{playerTwo}">playerTwo Error</p>
+
+    <p><input type="submit" value="Submit"/></p>
+</form>
 </body>
 </html>
