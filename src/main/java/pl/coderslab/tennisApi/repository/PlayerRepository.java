@@ -1,8 +1,8 @@
-package pl.coderslab.feedingtennisapi.repository;
+package pl.coderslab.tennisApi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.coderslab.feedingtennisapi.entity.Player;
+import pl.coderslab.tennisApi.entity.Player;
 
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Integer> {

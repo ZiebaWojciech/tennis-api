@@ -1,4 +1,4 @@
-package pl.coderslab.feedingtennisapi.rest;
+package pl.coderslab.tennisApi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Custom ATP API")
+                .title("Custom ATP Tennis Data API")
                 .description("API with ATP data feed about players, rankings, past, future and in-play events. Created for CodersLab final project purposes")
                 .version("1.0.0")
                 .build();
@@ -24,7 +24,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("pl.coderslab"))
+                .apis(RequestHandlerSelectors.basePackage("pl.coderslab.rest"))
                 .paths(PathSelectors.any())
                 .build();
     }

@@ -1,4 +1,4 @@
-package pl.coderslab.feedingtennisapi.entity;
+package pl.coderslab.tennisApi.entity;
 
 public enum Country {
     ESP,
@@ -7,5 +7,6 @@ public enum Country {
     ARG,
     GER,
     CRO,
-    GBR
+    GBR,
+    POL
 }

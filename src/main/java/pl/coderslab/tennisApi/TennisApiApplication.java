@@ -1,12 +1,12 @@
-package pl.coderslab.feedingtennisapi;
+package pl.coderslab.tennisApi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FeedingTennisApiApplication {
+public class TennisApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FeedingTennisApiApplication.class, args);
+        SpringApplication.run(TennisApiApplication.class, args);
     }
 }

@@ -1,13 +1,15 @@
-package pl.coderslab.feedingtennisapi.entity;
+package pl.coderslab.tennisApi.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
 @Entity
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,4 +1,4 @@
-package pl.coderslab.feedingtennisapi.entity;
+package pl.coderslab.tennisApi.entity;
 
 import lombok.Getter;
 
