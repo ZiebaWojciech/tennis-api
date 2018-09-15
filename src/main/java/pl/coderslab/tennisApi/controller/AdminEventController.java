@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.coderslab.tennisApi.entity.Country;
@@ -16,13 +17,13 @@ import pl.coderslab.tennisApi.service.PlayerService;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/admin/create")
-public class AdminCreateController {
+@RequestMapping("/admin/event")
+public class AdminEventController {
     private final PlayerService playerService;
     private final EventService eventService;
 
     @Autowired
-    public AdminCreateController(PlayerService playerService, EventService eventService) {
+    public AdminEventController(PlayerService playerService, EventService eventService) {
         this.playerService = playerService;
         this.eventService = eventService;
     }
@@ -38,18 +39,24 @@ public class AdminCreateController {
         return "admin_page";
     }
 
-    @RequestMapping(path = "/event", method = RequestMethod.GET)
+    @RequestMapping(path = "/create", method = RequestMethod.GET)
     public String createEventGet(Model model) {
         model.addAttribute("event", new Event());
         return "create_event";
     }
 
-    @RequestMapping(path = "/event", method = RequestMethod.POST)
+    @RequestMapping(path = "/create", method = RequestMethod.POST)
     public String createEventPost(@Valid Event event, BindingResult result) {
         if(result.hasErrors()){
             return "create_event";
         }
         eventService.save(event);
         return "redirect:/admin";
+    }
+
+    @RequestMapping(path = "/{eventId}/start", method = RequestMethod.GET)
+    public String startEvent(@PathVariable int eventId, Model model) {
+        model.addAttribute("event", eventService.getOne(eventId));
+        return "run_event";
     }
 }

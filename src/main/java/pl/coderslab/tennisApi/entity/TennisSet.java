@@ -3,6 +3,7 @@ package pl.coderslab.tennisApi.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,8 +14,5 @@ public class TennisSet {
     private int id;
 
     @OneToMany
-    private List<TennisGame> games;
-
-    @ManyToOne
-    private Player winner;
+    private List<TennisGame> games = new ArrayList<>();
 }
