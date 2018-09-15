@@ -1,0 +1,10 @@
+INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (1, '1986-06-03', 'ESP', 'Rafael', 'Nadal');
+INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (2, '1981-08-08', 'SUI', 'Roger', 'Federer');
+INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (3, '1987-05-22', 'SRB', 'Novak', 'Djokovic');
+INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (4, '1988-09-23', 'ARG', 'Juan Martin', 'del Potro');
+INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (5, '1990-05-23', 'GBR', 'Daniel', 'Evans');
+INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (6, '1988-02-21', 'GBR', 'Edward', 'Corrie');
+INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (7, '1995-01-08', 'GBR', 'Kyle', 'Edmund');
+INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (8, '1998-06-03', 'GBR', 'Alexis', 'Canter');
+INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (9, '1990-11-13', 'POL', 'Jerzy', 'Janowicz');
+INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (10, '1997-08-07', 'POL', 'Michał', 'Dembek');
