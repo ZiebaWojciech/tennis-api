@@ -11,7 +11,11 @@ public class TennisGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private int id;
 
+    private boolean inPlay;
+
     private int playerOnePoints;
     private int playerTwoPoints;
 
+    @ManyToOne
+    private Player tennisGameWinner;
 }

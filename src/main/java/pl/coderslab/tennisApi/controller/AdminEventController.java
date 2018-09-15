@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.coderslab.tennisApi.entity.Country;
 import pl.coderslab.tennisApi.entity.Event;
 import pl.coderslab.tennisApi.entity.EventStatus;
+import pl.coderslab.tennisApi.entity.Result;
 import pl.coderslab.tennisApi.service.EventService;
 import pl.coderslab.tennisApi.service.PlayerService;
 
@@ -34,10 +35,6 @@ public class AdminEventController {
         model.addAttribute("statuses", EventStatus.values());
         model.addAttribute("players", playerService.getAll());
     }
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public String adminPage(){
-        return "admin_page";
-    }
 
     @RequestMapping(path = "/create", method = RequestMethod.GET)
     public String createEventGet(Model model) {
@@ -54,9 +51,18 @@ public class AdminEventController {
         return "redirect:/admin";
     }
 
+    @RequestMapping(path = "/all", method = RequestMethod.GET)
+    public String allEvents(Model model) {
+        model.addAttribute("events", eventService.getAll());
+        return "all_event";
+    }
+
     @RequestMapping(path = "/{eventId}/start", method = RequestMethod.GET)
     public String startEvent(@PathVariable int eventId, Model model) {
-        model.addAttribute("event", eventService.getOne(eventId));
+        Event event = eventService.getOne(eventId);
+        Result result = eventService.startEvent(event);
+        model.addAttribute("event", event);
+        model.addAttribute("result", result);
         return "run_event";
     }
 }

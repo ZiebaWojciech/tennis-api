@@ -15,4 +15,16 @@ public class TennisSet {
 
     @OneToMany
     private List<TennisGame> games = new ArrayList<>();
+
+    private boolean inPlay;
+
+    private int gamesWonByPlayerOne;
+    private int gamesWonByPlayerTwo;
+
+    @ManyToOne
+    private Player tennisSetWinner;
+
+    public void addGame(TennisGame tennisGame){
+        this.games.add(tennisGame);
+    }
 }

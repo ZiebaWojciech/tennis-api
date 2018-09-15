@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin page</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th> Players </th>
+        <th> Time of start </th>
+        <th> Status </th>
+        <th> Actions </th>
+    </tr>
+    <tr th:each="event : ${events}" th:object="${event}">
+        <td th:text="*{playerOne.name}+' '+*{playerOne.surname}+' vs '+*{playerTwo.name}+' '+*{playerTwo.surname}"></td>
+        <td th:text="*{timeOfStart}"></td>
+        <td th:text="*{status}"></td>
+        <td><a  th:href="@{/admin/event/{event_id}/start(event_id=${event.id})}"  th:text="'Start event'">
+            hej <span > </span>
+        </a> </td>
+    </tr>
+</table>
+</body>
+</html>

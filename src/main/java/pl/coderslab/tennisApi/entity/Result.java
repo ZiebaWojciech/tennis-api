@@ -11,7 +11,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +22,12 @@ public class Result {
     @OneToMany
     private List<TennisSet> sets = new ArrayList<>();
     @ManyToOne
-    private Player winner;
+    private Player winner; //TODO probably will be redundant
     @ManyToOne
     private Player looser;
 
-
+    public void addSet(TennisSet tennisSet){
+        this.sets.add(tennisSet);
+    }
 }
 
