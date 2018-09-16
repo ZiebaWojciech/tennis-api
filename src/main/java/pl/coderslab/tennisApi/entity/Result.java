@@ -19,7 +19,7 @@ public class Result {
     @OneToOne
     private Event event;
 
-    @OneToMany
+    @OneToMany(mappedBy = "result")
     private List<TennisSet> sets = new ArrayList<>();
     @ManyToOne
     private Player winner; //TODO probably will be redundant

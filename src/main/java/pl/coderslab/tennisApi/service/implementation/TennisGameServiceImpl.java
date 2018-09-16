@@ -3,10 +3,7 @@ package pl.coderslab.tennisApi.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
-import pl.coderslab.tennisApi.entity.Player;
-import pl.coderslab.tennisApi.entity.Result;
-import pl.coderslab.tennisApi.entity.TennisGame;
-import pl.coderslab.tennisApi.entity.TennisSet;
+import pl.coderslab.tennisApi.entity.*;
 import pl.coderslab.tennisApi.repository.ResultRepository;
 import pl.coderslab.tennisApi.repository.TennisGameRepository;
 import pl.coderslab.tennisApi.service.ResultService;
@@ -17,15 +14,14 @@ import java.util.List;
 
 @Service
 public class TennisGameServiceImpl implements TennisGameService {
-    final TennisGameRepository tennisGameRepository;
-    final TennisSetService tennisSetService;
-    final ResultService resultService;
+    private final TennisGameRepository tennisGameRepository;
+
+    private final TennisSetService tennisSetService;
 
     @Autowired
-    public TennisGameServiceImpl(TennisGameRepository tennisGameRepository, TennisSetService tennisSetService, ResultService resultService) {
+    public TennisGameServiceImpl(TennisGameRepository tennisGameRepository, TennisSetService tennisSetService) {
         this.tennisGameRepository = tennisGameRepository;
         this.tennisSetService = tennisSetService;
-        this.resultService = resultService;
     }
 
     @Override
@@ -44,24 +40,35 @@ public class TennisGameServiceImpl implements TennisGameService {
     }
 
 
-    @Override
-    public void playerOneWinsPoint(Result result) {
-        TennisGame currentGame = resultService.getCurrentGame(result);
+    public void playerWinsPoint(TennisSet tennisSet, TennisGame currentGame, Player winnerOfPoint) {
         currentGame.setPlayerOnePoints(currentGame.getPlayerOnePoints() + 1);
-        if (currentGame.getPlayerOnePoints() - currentGame.getPlayerTwoPoints() == 2 && currentGame.getPlayerOnePoints() >= 4) {
-            currentGame.setTennisGameWinner(result.getEvent().getPlayerOne());
-            tennisSetService.playerOneWinsGame(result);
+        if(endOfGame(currentGame)){
+            currentGame.setTennisGameWinner(winnerOfPoint);
+            tennisSetService.playerWinsGame(tennisSet, winnerOfPoint);
+
         }
+        save(currentGame);
+    }
+    @Override
+    public boolean endOfGame(TennisGame currentGame) {
+        return (currentGame.getPlayerOnePoints() - currentGame.getPlayerTwoPoints() == 2 && currentGame.getPlayerOnePoints() >= 4);
     }
 
+//    @Override
+//    public void playerTwoWinsPoint(Result result) {
+//        TennisGame currentGame = resultService.getCurrentGame(result);
+//        currentGame.setPlayerTwoPoints(currentGame.getPlayerTwoPoints() + 1);
+//        if (currentGame.getPlayerTwoPoints() - currentGame.getPlayerOnePoints() == 2 && currentGame.getPlayerTwoPoints() >= 4) {
+//            currentGame.setTennisGameWinner(result.getEvent().getPlayerTwo());
+//            tennisSetService.playerTwoWinsGame(result);
+//        }
+//    }
+
     @Override
-    public void playerTwoWinsPoint(Result result) {
-        TennisGame currentGame = resultService.getCurrentGame(result);
-        currentGame.setPlayerTwoPoints(currentGame.getPlayerTwoPoints() + 1);
-        if (currentGame.getPlayerTwoPoints() - currentGame.getPlayerOnePoints() == 2 && currentGame.getPlayerTwoPoints() >= 4) {
-            currentGame.setTennisGameWinner(result.getEvent().getPlayerTwo());
-            tennisSetService.playerTwoWinsGame(result);
-        }
+    public void newGameInCurrentSet(TennisSet tennisSet) {
+        TennisGame game = new TennisGame();
+        tennisSet.addGame(game);
+        tennisSetService.save(tennisSet);
     }
 
 

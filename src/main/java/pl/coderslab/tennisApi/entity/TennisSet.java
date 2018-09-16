@@ -13,6 +13,9 @@ public class TennisSet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @ManyToOne
+    Result result;
+
     @OneToMany
     private List<TennisGame> games = new ArrayList<>();
 

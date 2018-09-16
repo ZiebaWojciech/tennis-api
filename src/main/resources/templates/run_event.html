@@ -32,5 +32,9 @@
         <td th:text="*{gamesWonByPlayerTwo}"></td>
     </tr>
 </table>
+<form>
+    <input name="playerOneWinsPoint" th:value="'Point for '+${event.playerOne.surname}" type="submit">
+    <input name="playerOneWinsPoint" th:value="'Point for '+${event.playerTwo.surname}" type="submit">
+</form>
 </body>
 </html>

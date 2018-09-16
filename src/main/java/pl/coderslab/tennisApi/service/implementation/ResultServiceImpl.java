@@ -14,6 +14,7 @@ import java.util.Optional;
 @Service
 public class ResultServiceImpl implements ResultService {
     private final ResultRepository resultRepository;
+
     private final TennisGameService tennisGameService;
     private final TennisSetService tennisSetService;
 
@@ -42,14 +43,12 @@ public class ResultServiceImpl implements ResultService {
 
     @Override
     public Result startEvent(Event event) {
-        TennisGame game = new TennisGame();
-        tennisGameService.save(game);
-        TennisSet set = new TennisSet();
-        set.addGame(game);
-        tennisSetService.save(set);
         Result result = new Result();
         result.setEvent(event);
-        result.addSet(set);
+        TennisSet tennisSet = new TennisSet();
+        tennisSet.setInPlay(true);
+        tennisGameService.newGameInCurrentSet(result);
+        tennisSetService.newSetInMatch(result);
         return resultRepository.save(result);
     }
 
@@ -69,39 +68,72 @@ public class ResultServiceImpl implements ResultService {
                 .orElse(null);
     }
 
+//    @Override
+//    public void playerOneWinsPoint(Result result) {
+//        TennisGame currentGame = getCurrentGame(result);
+//
+//        tennisSetService.playerOneWinsGame(result);
+//    }
+
+
+//    @Override
+//    public void playerOneWinsSet(Result result) {
+//        Player playerOne = result.getEvent().getPlayerOne();
+//        getCurrentSet(result).setTennisSetWinner(playerOne);
+//        long tennisSetWonByPlayerOne = result.getSets().stream()
+//                .filter(s -> s.getTennisSetWinner().equals(playerOne))
+//                .count();
+//        if (tennisSetWonByPlayerOne == 3) {
+//            playerOneWinsMatch(result);
+//        }
+//    }
+//
+//    @Override
+//    public void playerTwoWinsSet(Result result) {
+//        Player playerTwo = result.getEvent().getPlayerTwo();
+//        getCurrentSet(result).setTennisSetWinner(playerTwo);
+//        long tennisSetWonByPlayerOne = result.getSets().stream()
+//                .filter(s -> s.getTennisSetWinner().equals(playerTwo))
+//                .count();
+//        if (tennisSetWonByPlayerOne == 3) {
+//            playerTwoWinsMatch(result);
+//        }
+//    }
+
+//    @Override
+//    public void playerTwoWinsMatch(Result result) {
+//        result.setWinner(result.getEvent().getPlayerOne());
+//        result.setLooser(result.getEvent().getPlayerTwo());
+//    }
+
     @Override
-    public void playerOneWinsSet(Result result) {
-        Player playerOne = result.getEvent().getPlayerOne();
-        getCurrentSet(result).setTennisSetWinner(playerOne);
-        long tennisSetWonByPlayerOne = result.getSets().stream()
-                                                        .filter(s -> s.getTennisSetWinner().equals(playerOne))
-                                                        .count();
-        if(tennisSetWonByPlayerOne == 3){
-            playerOneWinsMatch(result, playerOne);
+    public void playerWinsSet(Result result, Player winnerOfSet) {
+        if (endOfMatch(result, winnerOfSet)) {
+            Player looser = result.getEvent().getPlayerOne().equals(winnerOfSet) ? result.getEvent().getPlayerTwo() : result.getEvent().getPlayerOne();
+            result.setLooser(looser);
+            result.setWinner(winnerOfSet);
+            save(result);
+        } else {
+            tennisSetService.newSetInMatch(result);
         }
     }
 
     @Override
-    public void playerTwoWinsSet(Result result) {
-        Player playerTwo = result.getEvent().getPlayerTwo();
-        getCurrentSet(result).setTennisSetWinner(playerTwo);
-        long tennisSetWonByPlayerOne = result.getSets().stream()
-                .filter(s -> s.getTennisSetWinner().equals(playerTwo))
+    public boolean endOfMatch(Result result, Player winnerOfLastSet) {
+        long setsWonByPlayerOne = result.getSets().stream()
+                .filter(s -> s.getTennisSetWinner().equals(winnerOfLastSet))
                 .count();
-        if(tennisSetWonByPlayerOne == 3){
-            playerTwoWinsMatch(result, playerTwo);
-        }
+        return (setsWonByPlayerOne == 3);
     }
 
-    private void playerTwoWinsMatch(Result result, Player playerOne) {
-        result.setWinner(playerOne);
-        result.setLooser(result.getEvent().getPlayerTwo());
+//    @Override
+//    public void playerOneWinsMatch(Result result) {
+//        result.setWinner(result.getEvent().getPlayerTwo());
+//        result.setLooser(result.getEvent().getPlayerOne());
+//    }
+    @Override
+    public void playerWinsPointInMatch(Result result, TennisSet currentSet, TennisGame currentGame, Player winnerOfPoint) {
+        tennisGameService.playerWinsPoint(currentSet, currentGame, winnerOfPoint);
+
     }
-
-    private void playerOneWinsMatch(Result result, Player playerTwo) {
-        result.setWinner(playerTwo);
-        result.setLooser(result.getEvent().getPlayerOne());
-    }
-
-
 }

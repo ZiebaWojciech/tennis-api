@@ -14,11 +14,16 @@ public interface ResultService {
     TennisSet getCurrentSet(Result result);
     TennisGame getCurrentGame(Result result);
 
-    void playerOneWinsSet(Result result);
+//    void playerOneWinsPoint(Result result);
+//
+//    void playerOneWinsSet(Result result);
+//    void playerTwoWinsSet(Result result);
+//
+//    void playerOneWinsMatch(Result result);
+//    void playerTwoWinsMatch(Result result);
 
-    void playerTwoWinsSet(Result result);
-
-    void playerOneWinsMatch(Result result);
-    void playerTwoWinsMatch(Result result);
+    void playerWinsSet(Result result, Player winnerOfSet);
+    void playerWinsPointInMatch(Result result, TennisSet currentSet, TennisGame currentGame,  Player winnerOfPoint);
+    boolean endOfMatch(Result result, Player winnerOfLastSet);
     //TODO adding games and sets?
 }
