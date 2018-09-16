@@ -10,7 +10,7 @@ public interface ResultService {
     List<Result> getAll();
     Result save(Result result);
 
-    Result startEvent(Event event);
+    Result startResultOfEvent(Event event);
 
     TennisSet getCurrentSet(Result result);
     TennisGame getCurrentGame(Result result);
@@ -18,6 +18,5 @@ public interface ResultService {
 
     void playerWinsSet(Result result, Player winnerOfSet);
     void playerWinsPointInMatch(Result result, Player winnerOfPoint);
-    boolean endOfMatch(Result result, Player winnerOfLastSet);
-    //TODO adding games and sets?
+    void endOfMatch(Result result, Player winnerOfLastSet);
 }

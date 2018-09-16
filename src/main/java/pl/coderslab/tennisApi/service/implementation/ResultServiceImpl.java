@@ -62,7 +62,7 @@ public class ResultServiceImpl implements ResultService {
 
 
     @Override
-    public Result startEvent(Event event) {
+    public Result startResultOfEvent(Event event) {
         Result result = new Result();
         result.setEvent(event);
         tennisSetService.newSetInMatch(result);
@@ -96,26 +96,21 @@ public class ResultServiceImpl implements ResultService {
             result.setSetsWonByPlayerOne(result.getSetsWonByPlayerOne() + 1);
         } else {
             result.setSetsWonByPlayerTwo(result.getSetsWonByPlayerTwo() + 1);
-
         }
-
-        if (endOfMatch(result, winnerOfSet)) { //TODO wywalić na zewnątrz metodę endOfMatch a warunek tutaj
-            Player looser = result.getEvent().getPlayerOne().equals(winnerOfSet) ? result.getEvent().getPlayerTwo() : result.getEvent().getPlayerOne();
-            result.setLooser(looser);
-            result.setWinner(winnerOfSet);
-            result.getEvent().setStatus(EventStatus.COMPLETED);
-            save(result);
+        if (result.getSets().stream().filter(s -> s.getTennisSetWinner().equals(winnerOfSet)).count() == 3) {
+            endOfMatch(result, winnerOfSet);
         } else {
             tennisSetService.newSetInMatch(result);
         }
     }
 
     @Override
-    public boolean endOfMatch(Result result, Player winnerOfLastSet) {
-        long setsWonByPlayerOne = result.getSets().stream()
-                .filter(s -> s.getTennisSetWinner().equals(winnerOfLastSet))
-                .count();
-        return (setsWonByPlayerOne == 3);
+    public void endOfMatch(Result result, Player winnerOfSet) {
+        Player looser = result.getEvent().getPlayerOne().equals(winnerOfSet) ? result.getEvent().getPlayerTwo() : result.getEvent().getPlayerOne();
+        result.setLooser(looser);
+        result.setWinner(winnerOfSet);
+        result.getEvent().setStatus(EventStatus.COMPLETED);
+        save(result);
     }
 
 

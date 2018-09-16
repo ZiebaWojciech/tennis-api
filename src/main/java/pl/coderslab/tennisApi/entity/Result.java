@@ -16,7 +16,7 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Event event;
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})

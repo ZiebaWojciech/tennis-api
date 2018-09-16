@@ -41,6 +41,6 @@ public class EventServiceImpl implements EventService {
     public Result startEvent(Event event) {
         event.setStatus(EventStatus.IN_PROGRESS);
         eventRepository.save(event);
-        return resultService.startEvent(event);
+        return resultService.startResultOfEvent(event);
     }
 }

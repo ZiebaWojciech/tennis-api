@@ -91,32 +91,5 @@ public class AdminEventController {
         return "redirect:/admin/event/" + eventId + "/running";
     }
 
-    /**
-     * As spring does not allow to use @Scheduled with methods with arguments
-     * the event id has to be entered manually for now. The method is only for presentation purposes.
-     *
-     * @return
-     */
-    @Scheduled(fixedRate = 1000L)
-    @ResponseBody
-    @RequestMapping(path = "/auto", method = RequestMethod.GET)
-    public void runEventAuto() {
-        Event event = eventService.getOne(4); //TODO << put id here (parametrize)
-        Result result = resultService.getOneByEvent(event);
-        if (event.getStatus().equals(EventStatus.IN_PROGRESS)) {
-            autoEventResolverService.setPlayerOneChancesToWin(90); //TODO << put chances for playerOne to win here (parametrize)
-            resultService.playerWinsPointInMatch(result, autoEventResolverService.pointAssign(event));
-            System.out.println(Thread.currentThread().getName());
-            System.out.println(event.toString());
-        }
-    }
 
-//    @Autowired
-//    ThreadPoolTaskScheduler taskScheduler;
-//
-//    @RequestMapping(path = "/stop-auto", method = RequestMethod.GET)
-//    public String stopEventAuto() {
-//        taskScheduler.shutdown();
-//        return "redirect:/admin/event/all";
-//    }
 }

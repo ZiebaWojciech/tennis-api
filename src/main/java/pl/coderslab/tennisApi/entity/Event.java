@@ -31,6 +31,6 @@ public class Event {
     @NotNull
     @Enumerated(EnumType.STRING)
     private EventStatus status;
-    @OneToOne(mappedBy = "event")
+    @OneToOne(mappedBy = "event", cascade = {CascadeType.ALL})
     private Result result;
 }
