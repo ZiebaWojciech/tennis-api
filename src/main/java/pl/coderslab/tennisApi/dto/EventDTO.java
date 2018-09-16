@@ -1,5 +1,6 @@
 package pl.coderslab.tennisApi.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.List;
 @Component
 @Getter
 @Setter
+@Data
 public class EventDTO {
     private int eventId;
     private Country country;
@@ -24,23 +26,5 @@ public class EventDTO {
     private Player playerTwo;
     private EventStatus status;
 
-    private int playerOnePointsInCurrentGame;
-    private int playerTwoPointsInCurrentGame;
-
-    private int playerOneWonGamesInSets[] = new int[5];
-    private int playerTwoWonGamesInSets[] = new int[5];
-
-    @Autowired
-    ResultService resultService;
-
-    public void setPlayerOneWonGamesInSets(int[] playerOneWonGamesInSets) {
-//        for(TennisSet tennisSet : sets){
-
-//        }
-        this.playerOneWonGamesInSets = playerOneWonGamesInSets;
-    }
-
-    public void setPlayerTwoWonGamesInSets(int[] playerTwoWonGamesInSets) {
-        this.playerTwoWonGamesInSets = playerTwoWonGamesInSets;
-    }
+    private List<TennisSet> sets;
 }

@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@Data
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +32,8 @@ public class Event {
     @NotNull
     @Enumerated(EnumType.STRING)
     private EventStatus status;
-    @OneToOne(mappedBy = "event", cascade = {CascadeType.ALL})
+    @OneToOne(mappedBy = "event",
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true)
     private Result result;
 }

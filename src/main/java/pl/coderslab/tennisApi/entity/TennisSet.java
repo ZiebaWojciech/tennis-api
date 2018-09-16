@@ -18,7 +18,7 @@ public class TennisSet {
 
     private int sequenceNumber;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<TennisGame> games = new ArrayList<>();
 
     private int gamesWonByPlayerOne;

@@ -20,19 +20,19 @@
     </tr>
 </table>
 
-<table >
+<table border="1">
     <tr th:object="${result}">
         <th></th>
         <th th:text="*{event.playerOne.name}+' '+*{event.playerOne.surname}">  </th>
         <th th:text="*{event.playerTwo.name}+' '+*{event.playerTwo.surname}">  </th>
     </tr>
     <tr th:each="set : ${result.sets}" th:object="${set}">
-        <td th:text="'Set '+*{sequenceNumber}"> </td>
+        <th th:span="row" th:text="'Set '+*{sequenceNumber}"> </th>
         <td th:text="*{gamesWonByPlayerOne}"></td>
         <td th:text="*{gamesWonByPlayerTwo}"></td>
     </tr>
-    <tr>
-        <td> Game </td>
+    <tr th:if="${currentGame}">
+        <th th:span="row" th:text="'Game'">  </th>
         <td th:text="${currentGame.playerOnePoints}"></td>
         <td th:text="${currentGame.playerTwoPoints}"></td>
     </tr>
