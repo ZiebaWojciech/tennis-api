@@ -18,10 +18,6 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JsonIgnore
-    @OneToOne(cascade = {CascadeType.ALL})
-    private Event event;
-
     @OneToMany(cascade = {CascadeType.ALL})
     private List<TennisSet> sets = new ArrayList<>();
     @ManyToOne

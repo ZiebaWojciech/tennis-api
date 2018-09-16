@@ -7,5 +7,5 @@ import pl.coderslab.tennisApi.entity.Result;
 
 @Repository
 public interface ResultRepository extends JpaRepository<Result, Integer> {
-    Result getByEvent(Event event);
+//    Result getByEvent(Event event);
 }

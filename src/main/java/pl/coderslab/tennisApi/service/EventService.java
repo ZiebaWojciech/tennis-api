@@ -12,6 +12,6 @@ public interface EventService {
     List<Event> getAll();
     Event save(Event event);
 
-    Result startEvent(Event event);
+    void startEvent(Event event);
 
 }

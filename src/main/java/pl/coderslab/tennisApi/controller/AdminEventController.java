@@ -61,30 +61,28 @@ public class AdminEventController {
     }
 
     @RequestMapping(path = "/{eventId}/start", method = RequestMethod.GET)
-    public String startEvent(@PathVariable int eventId, Model model) {
+    public String startEvent(@PathVariable int eventId) {
         Event event = eventService.getOne(eventId);
-        Result result = eventService.startEvent(event);
+        eventService.startEvent(event);
         return "redirect:/admin/event/" + eventId + "/running";
     }
 
     @RequestMapping(path = "/{eventId}/running", method = RequestMethod.GET)
     public String runEvent(@PathVariable int eventId, Model model) {
         Event event = eventService.getOne(eventId);
-        Result result = resultService.getOneByEvent(event);
         if (event.getStatus().equals(EventStatus.IN_PROGRESS)) {
-            TennisGame currentGame = resultService.getCurrentGame(result);
+            TennisGame currentGame = resultService.getCurrentGame(event);
             model.addAttribute("currentGame", currentGame);
         }
         model.addAttribute("event", event);
-        model.addAttribute("result", result);
+//        model.addAttribute("result", event.getResult()); //TODO result is in event, change in view
         return "run_event";
     }
 
     @RequestMapping(path = "/{eventId}/add-point", method = RequestMethod.POST)
     public String addPoint(@PathVariable int eventId, @RequestParam("playerId") int winnerOfPointId) {
         Event event = eventService.getOne(eventId);
-        Result result = resultService.getOneByEvent(event);
-        resultService.playerWinsPointInMatch(result, playerService.getOne(winnerOfPointId));
+        resultService.playerWinsPointInMatch(event, playerService.getOne(winnerOfPointId));
         if (event.getStatus().equals(EventStatus.COMPLETED)) {
             return "redirect:/admin/event/all";
         }

@@ -53,49 +53,49 @@ public class TennisSetServiceImpl implements TennisSetService {
     }
 
     @Override
-    public void newSetInMatch(Result result) {
+    public void newSetInMatch(Event event) {
         TennisSet tennisSet = new TennisSet();
         tennisSet.setInPlay(true);
-        result.addSet(tennisSet);
-        tennisGameService.newGameInCurrentSet(result);
-        resultService.save(result);
+        event.getResult().addSet(tennisSet);
+        tennisGameService.newGameInCurrentSet(event);
+        resultService.save(event.getResult());
     }
 
     @Override
-    public void playerWinsGame(Result result, Player winnerOfGame) {
-        TennisSet currentTennisSet = resultService.getCurrentSet(result);
-        if (winnerOfGame.equals(result.getEvent().getPlayerOne())) {
+    public void playerWinsGame(Event event, Player winnerOfGame) {
+        TennisSet currentTennisSet = resultService.getCurrentSet(event);
+        if (winnerOfGame.equals(event.getPlayerOne())) {
             currentTennisSet.setGamesWonByPlayerOne(currentTennisSet.getGamesWonByPlayerOne() + 1);
         } else {
             currentTennisSet.setGamesWonByPlayerTwo(currentTennisSet.getGamesWonByPlayerTwo() + 1);
         }
 
-        if (endOfSet(result)) {
+        if (endOfSet(event)) {
             currentTennisSet.setTennisSetWinner(winnerOfGame);
             currentTennisSet.setInPlay(false);
-            resultService.playerWinsSet(result, winnerOfGame);
+            resultService.playerWinsSet(event, winnerOfGame);
         } else {
-            tennisGameService.newGameInCurrentSet(result);
+            tennisGameService.newGameInCurrentSet(event);
         }
 
     }
 
-    public long countGamesWonByPlayerOne(Result result) {
-        return resultService.getCurrentSet(result).getGames().stream()
-                .filter(game -> result.getEvent().getPlayerOne().equals(game.getTennisGameWinner()))
+    public long countGamesWonByPlayerOne(Event event) {
+        return resultService.getCurrentSet(event).getGames().stream()
+                .filter(game -> event.getPlayerOne().equals(game.getTennisGameWinner()))
                 .count();
     }
 
-    public long countGamesWonByPlayerTwo(Result result) {
-        return resultService.getCurrentSet(result).getGames().stream()
-                .filter(game -> result.getEvent().getPlayerTwo().equals(game.getTennisGameWinner()))
+    public long countGamesWonByPlayerTwo(Event event) {
+        return resultService.getCurrentSet(event).getGames().stream()
+                .filter(game -> event.getPlayerTwo().equals(game.getTennisGameWinner()))
                 .count();
     }
 
     @Override
-    public boolean endOfSet(Result result) {
-        return (Math.abs(countGamesWonByPlayerOne(result) - countGamesWonByPlayerTwo(result)) >= 2 &&
-                (countGamesWonByPlayerOne(result) >= 6 || countGamesWonByPlayerTwo(result) >= 6));
+    public boolean endOfSet(Event event) {
+        return (Math.abs(countGamesWonByPlayerOne(event) - countGamesWonByPlayerTwo(event)) >= 2 &&
+                (countGamesWonByPlayerOne(event) >= 6 || countGamesWonByPlayerTwo(event) >= 6));
     }
 
 

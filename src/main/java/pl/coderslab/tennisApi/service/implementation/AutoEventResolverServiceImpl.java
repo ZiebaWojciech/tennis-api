@@ -63,10 +63,9 @@ public class AutoEventResolverServiceImpl implements AutoEventResolverService {
     @Scheduled(fixedRate = 500L)
     public void runEventAuto() {
         Event event = eventService.getOne(4); //TODO << put id here (parametrize)
-        Result result = resultService.getOneByEvent(event);
         if (event.getStatus().equals(EventStatus.IN_PROGRESS)) {
             setPlayerOneChancesToWin(70); //TODO << put chances for playerOne to win here (parametrize)
-            resultService.playerWinsPointInMatch(result, pointAssign(event));
+            resultService.playerWinsPointInMatch(event, pointAssign(event));
         }
         if(event.getPlayerOne().equals(EventStatus.COMPLETED)){
             stopEventAuto();

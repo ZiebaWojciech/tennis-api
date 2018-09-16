@@ -6,6 +6,7 @@ import pl.coderslab.tennisApi.entity.*;
 import pl.coderslab.tennisApi.repository.EventRepository;
 import pl.coderslab.tennisApi.service.EventService;
 import pl.coderslab.tennisApi.service.ResultService;
+import pl.coderslab.tennisApi.service.TennisSetService;
 
 import java.util.List;
 
@@ -13,13 +14,18 @@ import java.util.List;
 public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
     private final ResultService resultService;
+    private TennisSetService tennisSetService;
 
 
     @Autowired
     public EventServiceImpl(EventRepository eventRepository, ResultService resultService) {
         this.eventRepository = eventRepository;
         this.resultService = resultService;
+    }
 
+    @Autowired
+    public void setTennisSetService(TennisSetService tennisSetService) {
+        this.tennisSetService = tennisSetService;
     }
 
     @Override
@@ -38,9 +44,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Result startEvent(Event event) {
+    public void startEvent(Event event) {
         event.setStatus(EventStatus.IN_PROGRESS);
+        Result result = new Result();
+        event.setResult(result);
+        tennisSetService.newSetInMatch(event);
         eventRepository.save(event);
-        return resultService.startResultOfEvent(event);
     }
+
 }
