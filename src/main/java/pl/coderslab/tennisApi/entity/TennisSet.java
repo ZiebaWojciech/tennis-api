@@ -13,9 +13,6 @@ public class TennisSet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-//    @ManyToOne(cascade = {CascadeType.ALL}) //TODO shall not be here, but now is used
-//    Result result;
-
     private int sequenceNumber;
 
     @OneToMany(cascade = {CascadeType.ALL})
@@ -29,7 +26,7 @@ public class TennisSet {
     @ManyToOne
     private Player tennisSetWinner;
 
-    public void addGame(TennisGame tennisGame){
+    public void addGame(TennisGame tennisGame) {
         this.games.add(tennisGame);
     }
 

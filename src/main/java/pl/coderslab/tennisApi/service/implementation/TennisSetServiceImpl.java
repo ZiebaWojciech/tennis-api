@@ -56,7 +56,6 @@ public class TennisSetServiceImpl implements TennisSetService {
     public void newSetInMatch(Result result) {
         TennisSet tennisSet = new TennisSet();
         tennisSet.setInPlay(true);
-//        tennisSet.setResult(result); //TODO it should be made by spring, why not working?
         result.addSet(tennisSet);
         tennisGameService.newGameInCurrentSet(result);
         resultService.save(result);
