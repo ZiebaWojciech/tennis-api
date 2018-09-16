@@ -13,16 +13,13 @@ public class TennisSet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     Result result;
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<TennisGame> games = new ArrayList<>();
 
     private boolean inPlay;
-
-    private int gamesWonByPlayerOne;
-    private int gamesWonByPlayerTwo;
 
     @ManyToOne
     private Player tennisSetWinner;

@@ -18,7 +18,7 @@ public class Result {
     @OneToOne
     private Event event;
 
-    @OneToMany(mappedBy = "result", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<TennisSet> sets = new ArrayList<>();
     @ManyToOne
     private Player winner; //TODO probably will be redundant

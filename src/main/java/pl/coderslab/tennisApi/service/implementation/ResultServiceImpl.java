@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennisApi.entity.*;
 import pl.coderslab.tennisApi.repository.ResultRepository;
+import pl.coderslab.tennisApi.service.PlayerService;
 import pl.coderslab.tennisApi.service.ResultService;
 import pl.coderslab.tennisApi.service.TennisGameService;
 import pl.coderslab.tennisApi.service.TennisSetService;
@@ -17,6 +18,7 @@ public class ResultServiceImpl implements ResultService {
 
     private TennisGameService tennisGameService;
     private TennisSetService tennisSetService;
+    private PlayerService playerService;
 
     @Autowired
     public ResultServiceImpl(ResultRepository resultRepository) {
@@ -33,9 +35,19 @@ public class ResultServiceImpl implements ResultService {
         this.tennisSetService = tennisSetService;
     }
 
+    @Autowired
+    public void setPlayerService(PlayerService playerService) {
+        this.playerService = playerService;
+    }
+
     @Override
     public Result getOne(int id) {
         return resultRepository.getOne(id);
+    }
+
+    @Override
+    public Result getOneByEvent(Event event) {
+        return resultRepository.getByEvent(event);
     }
 
     @Override
@@ -137,10 +149,8 @@ public class ResultServiceImpl implements ResultService {
 //        result.setLooser(result.getEvent().getPlayerOne());
 //    }
     @Override
-    public void playerWinsPointInMatch(Result result, TennisSet currentSet, TennisGame currentGame, Player winnerOfPoint) {
-        tennisGameService.playerWinsPoint(currentSet, currentGame, winnerOfPoint);
-
+    public void playerWinsPointInMatch(Result result, int winnerOfPointId) {
+        tennisGameService.playerWinsPoint(result, getCurrentSet(result), getCurrentGame(result), playerService.getOne(winnerOfPointId));
     }
-
 
 }

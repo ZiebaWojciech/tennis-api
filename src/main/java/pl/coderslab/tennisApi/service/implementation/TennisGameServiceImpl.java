@@ -28,7 +28,6 @@ public class TennisGameServiceImpl implements TennisGameService {
     }
 
 
-
     @Override
     public TennisGame getOne(int id) {
         return tennisGameRepository.getOne(id);
@@ -44,19 +43,26 @@ public class TennisGameServiceImpl implements TennisGameService {
         return tennisGameRepository.save(tennisGame);
     }
 
+    @Override
+    public void playerWinsPoint(Result result, TennisSet currentTennisSet, TennisGame currentGame, Player winnerOfPoint) {
+        if (winnerOfPoint.equals(result.getEvent().getPlayerOne())) {
+            currentGame.setPlayerOnePoints(currentGame.getPlayerOnePoints() + 1);
+        } else {
+            currentGame.setPlayerTwoPoints(currentGame.getPlayerTwoPoints() + 1);
+        }
 
-    public void playerWinsPoint(TennisSet tennisSet, TennisGame currentGame, Player winnerOfPoint) {
-        currentGame.setPlayerOnePoints(currentGame.getPlayerOnePoints() + 1);
-        if(endOfGame(currentGame)){
+        if (endOfGame(currentGame)) {
             currentGame.setTennisGameWinner(winnerOfPoint);
-            tennisSetService.playerWinsGame(tennisSet, winnerOfPoint);
+            currentGame.setInPlay(false);
+            tennisSetService.playerWinsGame(currentTennisSet, winnerOfPoint);
 
         }
         save(currentGame);
     }
+
     @Override
     public boolean endOfGame(TennisGame currentGame) {
-        return (currentGame.getPlayerOnePoints() - currentGame.getPlayerTwoPoints() == 2 && currentGame.getPlayerOnePoints() >= 4);
+        return (Math.abs(currentGame.getPlayerOnePoints() - currentGame.getPlayerTwoPoints()) >= 2 && currentGame.getPlayerOnePoints() >= 4 || currentGame.getPlayerTwoPoints() >=4);
     }
 
 //    @Override
@@ -72,10 +78,10 @@ public class TennisGameServiceImpl implements TennisGameService {
     @Override
     public void newGameInCurrentSet(TennisSet tennisSet) {
         TennisGame game = new TennisGame();
+        game.setInPlay(true);
         tennisSet.addGame(game);
         tennisSetService.save(tennisSet);
     }
-
 
 
 }

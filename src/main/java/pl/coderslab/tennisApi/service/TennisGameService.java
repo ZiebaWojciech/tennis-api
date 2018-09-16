@@ -12,7 +12,7 @@ public interface TennisGameService {
 //    void playerOneWinsPoint(Result result);
 //    void playerTwoWinsPoint(Result result);
 
-    void playerWinsPoint(TennisSet tennisSet, TennisGame currentGame, Player winnerOfPoint);
+    void playerWinsPoint(Result result, TennisSet tennisSet, TennisGame currentGame, Player winnerOfPoint);
     boolean endOfGame(TennisGame currentGame);
     void newGameInCurrentSet(TennisSet tennisSet);
 }

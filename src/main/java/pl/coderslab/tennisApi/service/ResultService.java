@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ResultService {
     Result getOne(int id);
+    Result getOneByEvent(Event event);
     List<Result> getAll();
     Result save(Result result);
 
@@ -23,7 +24,7 @@ public interface ResultService {
 //    void playerTwoWinsMatch(Result result);
 
     void playerWinsSet(Result result, Player winnerOfSet);
-    void playerWinsPointInMatch(Result result, TennisSet currentSet, TennisGame currentGame,  Player winnerOfPoint);
+    void playerWinsPointInMatch(Result result, int winnerOfPointId);
     boolean endOfMatch(Result result, Player winnerOfLastSet);
     //TODO adding games and sets?
 }

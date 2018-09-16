@@ -4,16 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import pl.coderslab.tennisApi.entity.Country;
-import pl.coderslab.tennisApi.entity.Event;
-import pl.coderslab.tennisApi.entity.EventStatus;
-import pl.coderslab.tennisApi.entity.Result;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.tennisApi.entity.*;
 import pl.coderslab.tennisApi.service.EventService;
 import pl.coderslab.tennisApi.service.PlayerService;
+import pl.coderslab.tennisApi.service.ResultService;
 
 import javax.validation.Valid;
 
@@ -22,11 +17,13 @@ import javax.validation.Valid;
 public class AdminEventController {
     private final PlayerService playerService;
     private final EventService eventService;
+    private final ResultService resultService;
 
     @Autowired
-    public AdminEventController(PlayerService playerService, EventService eventService) {
+    public AdminEventController(PlayerService playerService, EventService eventService, ResultService resultService) {
         this.playerService = playerService;
         this.eventService = eventService;
+        this.resultService = resultService;
     }
 
     @ModelAttribute
@@ -61,8 +58,25 @@ public class AdminEventController {
     public String startEvent(@PathVariable int eventId, Model model) {
         Event event = eventService.getOne(eventId);
         Result result = eventService.startEvent(event);
+        return "redirect:/admin/event/"+eventId+"/running";
+    }
+
+    @RequestMapping(path = "/{eventId}/running", method = RequestMethod.GET)
+    public String runEvent(@PathVariable int eventId, Model model) {
+        Event event = eventService.getOne(eventId);
+        Result result = resultService.getOneByEvent(event);
+        TennisGame currentGame = resultService.getCurrentGame(result);
         model.addAttribute("event", event);
         model.addAttribute("result", result);
+        model.addAttribute("currentGame", currentGame);
         return "run_event";
+    }
+
+    @RequestMapping(path = "/{eventId}/add-point", method = RequestMethod.POST    )
+    public String addPoint(@PathVariable int eventId, @RequestParam("playerId") int winnerOfPointId, Model model) {
+        Event event = eventService.getOne(eventId);
+        Result result = resultService.getOneByEvent(event);
+        resultService.playerWinsPointInMatch(result, winnerOfPointId);
+        return "redirect:/admin/event/"+eventId+"/running";
     }
 }

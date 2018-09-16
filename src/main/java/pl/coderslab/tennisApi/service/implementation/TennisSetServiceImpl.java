@@ -77,6 +77,7 @@ public class TennisSetServiceImpl implements TennisSetService {
     public void newSetInMatch(Result result) {
         TennisSet tennisSet = new TennisSet();
         tennisSet.setInPlay(true);
+        tennisSet.setResult(result); //TODO it should be made by spring, why not working?
         result.addSet(tennisSet);
         tennisGameService.newGameInCurrentSet(tennisSet);
         resultService.save(result);
@@ -86,13 +87,17 @@ public class TennisSetServiceImpl implements TennisSetService {
     public void playerWinsGame(TennisSet currentTennisSet, Player winnerOfGame) {
         if (endOfSet(currentTennisSet)) {
             currentTennisSet.setTennisSetWinner(winnerOfGame);
+            currentTennisSet.setInPlay(false);
             resultService.playerWinsSet(currentTennisSet.getResult(), winnerOfGame);
+        } else {
+            tennisGameService.newGameInCurrentSet(currentTennisSet);
         }
+
     }
 
     @Override
     public boolean endOfSet(TennisSet currentTennisSet) {
-        return (currentTennisSet.getGamesWonByPlayerOne() - currentTennisSet.getGamesWonByPlayerTwo() == 2 && currentTennisSet.getGamesWonByPlayerOne() >= 6);
+        return (Math.abs(currentTennisSet.getGamesWonByPlayerOne() - currentTennisSet.getGamesWonByPlayerTwo()) >=2  && currentTennisSet.getGamesWonByPlayerOne() >= 6 || currentTennisSet.getGamesWonByPlayerTwo() >=6);
     }
 
 

@@ -28,13 +28,18 @@
     </tr>
     <tr th:each="set, iterStat : ${result.sets}" th:object="${set}">
         <td th:text="'Set '+${iterStat.count}"> </td>
-        <td th:text="*{gamesWonByPlayerOne}"></td>
+        <td th:text="*{}"></td>
         <td th:text="*{gamesWonByPlayerTwo}"></td>
     </tr>
+    <tr>
+        <td> Game </td>
+        <td th:text="${currentGame.playerOnePoints}"></td>
+        <td th:text="${currentGame.playerTwoPoints}"></td>
+    </tr>
 </table>
-<form method="post" th:action="@{/admin/event/{event_id}/point(event_id=${event.id})}">
-    <input name="playerOneWinsPoint" th:value="'Point for '+${event.playerOne.surname}" th:text="'Inny tekst'" type="submit">
-    <input name="playerOneWinsPoint" th:value="'Point for '+${event.playerTwo.surname}" type="submit">
+<form method="post" th:action="@{/admin/event/{event_id}/add-point(event_id=${event.id})}">
+    <button name="playerId" th:value="${event.playerOne.id}" th:text="'Point for '+${event.playerOne.surname}" type="submit"></button>
+    <button name="playerId" th:value="${event.playerTwo.id}" th:text="'Point for '+${event.playerTwo.surname}" type="submit"></button>
 </form>
 </body>
 </html>
