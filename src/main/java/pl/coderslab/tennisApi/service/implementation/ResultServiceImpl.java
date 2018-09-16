@@ -87,12 +87,19 @@ public class ResultServiceImpl implements ResultService {
 
     @Override
     public void playerWinsPointInMatch(Result result, Player winnerOfPoint) {
-        tennisGameService.playerWinsPoint(result, getCurrentSet(result), getCurrentGame(result), winnerOfPoint);
+        tennisGameService.playerWinsPoint(result, winnerOfPoint);
     }
 
     @Override
     public void playerWinsSet(Result result, Player winnerOfSet) {
-        if (endOfMatch(result, winnerOfSet)) {
+        if (winnerOfSet.equals(result.getEvent().getPlayerOne())) {
+            result.setSetsWonByPlayerOne(result.getSetsWonByPlayerOne() + 1);
+        } else {
+            result.setSetsWonByPlayerTwo(result.getSetsWonByPlayerTwo() + 1);
+
+        }
+
+        if (endOfMatch(result, winnerOfSet)) { //TODO wywalić na zewnątrz metodę endOfMatch a warunek tutaj
             Player looser = result.getEvent().getPlayerOne().equals(winnerOfSet) ? result.getEvent().getPlayerTwo() : result.getEvent().getPlayerOne();
             result.setLooser(looser);
             result.setWinner(winnerOfSet);

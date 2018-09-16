@@ -28,8 +28,8 @@
     </tr>
     <tr th:each="set : ${result.sets}" th:object="${set}">
         <td th:text="'Set '+*{sequenceNumber}"> </td>
-        <td th:text="*{countGamesWonByPlayerOne()}"></td>
-        <td th:text="*{countGamesWonByPlayerTwo()}"></td>
+        <td th:text="*{gamesWonByPlayerOne}"></td>
+        <td th:text="*{gamesWonByPlayerTwo}"></td>
     </tr>
     <tr>
         <td> Game </td>

@@ -1,5 +1,6 @@
 package pl.coderslab.tennisApi.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,12 +27,16 @@ public class Result {
     private Player looser;
 
     private int tennisSetInMatchSequentNumber = 1;
+    private int setsWonByPlayerOne;
+    private int setsWonByPlayerTwo;
+
 
     public void addSet(TennisSet tennisSet){
         tennisSet.setSequenceNumber(tennisSetInMatchSequentNumber++);
         this.sets.add(tennisSet);
 
     }
+
 
 }
 

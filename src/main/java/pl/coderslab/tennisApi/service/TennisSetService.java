@@ -13,8 +13,11 @@ public interface TennisSetService {
 
     TennisSet save(TennisSet tennisSet);
 
+    boolean endOfSet(Result result);
+    void playerWinsGame(Result result, Player winnerOfGame);
     void newSetInMatch(Result result);
-    boolean endOfSet(TennisSet currentTennisSet);
-    void playerWinsGame(TennisSet currentTennisSet, Player winnerOfGame);
+
+//    boolean endOfSet(TennisSet currentTennisSet);
+//    void playerWinsGame(TennisSet currentTennisSet, Player winnerOfGame);
 
 }

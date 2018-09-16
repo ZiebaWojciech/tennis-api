@@ -13,13 +13,16 @@ public class TennisSet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
-    Result result;
+//    @ManyToOne(cascade = {CascadeType.ALL}) //TODO shall not be here, but now is used
+//    Result result;
 
     private int sequenceNumber;
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<TennisGame> games = new ArrayList<>();
+
+    private int gamesWonByPlayerOne;
+    private int gamesWonByPlayerTwo;
 
     private boolean inPlay;
 
@@ -30,15 +33,4 @@ public class TennisSet {
         this.games.add(tennisGame);
     }
 
-    public long countGamesWonByPlayerOne() {
-        return this.games.stream()
-                .filter(game -> result.getEvent().getPlayerOne().equals(game.getTennisGameWinner()))
-                .count();
-    }
-
-    public long countGamesWonByPlayerTwo() {
-        return this.games.stream()
-                .filter(game -> result.getEvent().getPlayerTwo().equals(game.getTennisGameWinner()))
-                .count();
-    }
 }

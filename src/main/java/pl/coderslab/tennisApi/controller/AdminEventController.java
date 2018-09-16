@@ -2,6 +2,7 @@ package pl.coderslab.tennisApi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import pl.coderslab.tennisApi.service.EventService;
 import pl.coderslab.tennisApi.service.PlayerService;
 import pl.coderslab.tennisApi.service.ResultService;
 
+import javax.persistence.SqlResultSetMapping;
 import javax.validation.Valid;
 
 @Controller
@@ -79,7 +81,7 @@ public class AdminEventController {
     }
 
     @RequestMapping(path = "/{eventId}/add-point", method = RequestMethod.POST)
-    public String addPoint(@PathVariable int eventId, @RequestParam("playerId") int winnerOfPointId, Model model) {
+    public String addPoint(@PathVariable int eventId, @RequestParam("playerId") int winnerOfPointId) {
         Event event = eventService.getOne(eventId);
         Result result = resultService.getOneByEvent(event);
         resultService.playerWinsPointInMatch(result, playerService.getOne(winnerOfPointId));
@@ -89,19 +91,32 @@ public class AdminEventController {
         return "redirect:/admin/event/" + eventId + "/running";
     }
 
-    /**As spring does not allow to use @Scheduled with methods with arguments
-     * the event id has to be entered manually for now. The method is only for presentation puropses.
+    /**
+     * As spring does not allow to use @Scheduled with methods with arguments
+     * the event id has to be entered manually for now. The method is only for presentation purposes.
      *
      * @return
      */
-    @Scheduled(fixedRate = 3000L)
+    @Scheduled(fixedRate = 1000L)
     @ResponseBody
     @RequestMapping(path = "/auto", method = RequestMethod.GET)
     public void runEventAuto() {
-        Event event = eventService.getOne(4); //TODO << put id here
-        if(event.getStatus().equals(EventStatus.IN_PROGRESS)){
-            autoEventResolverService.setPlayerOneChancesToWin(50);
-            resultService.playerWinsPointInMatch(event.getResult(), autoEventResolverService.pointRandomize(event));
+        Event event = eventService.getOne(4); //TODO << put id here (parametrize)
+        Result result = resultService.getOneByEvent(event);
+        if (event.getStatus().equals(EventStatus.IN_PROGRESS)) {
+            autoEventResolverService.setPlayerOneChancesToWin(90); //TODO << put chances for playerOne to win here (parametrize)
+            resultService.playerWinsPointInMatch(result, autoEventResolverService.pointAssign(event));
+            System.out.println(Thread.currentThread().getName());
+            System.out.println(event.toString());
         }
     }
+
+//    @Autowired
+//    ThreadPoolTaskScheduler taskScheduler;
+//
+//    @RequestMapping(path = "/stop-auto", method = RequestMethod.GET)
+//    public String stopEventAuto() {
+//        taskScheduler.shutdown();
+//        return "redirect:/admin/event/all";
+//    }
 }

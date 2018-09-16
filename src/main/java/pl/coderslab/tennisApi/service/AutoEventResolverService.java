@@ -4,6 +4,7 @@ import pl.coderslab.tennisApi.entity.Event;
 import pl.coderslab.tennisApi.entity.Player;
 
 public interface AutoEventResolverService {
-    Player pointRandomize(Event event);
+    Player pointAssign(Event event);
     void setPlayerOneChancesToWin(int changePercentage);
+    int chanceRandomize();
 }
