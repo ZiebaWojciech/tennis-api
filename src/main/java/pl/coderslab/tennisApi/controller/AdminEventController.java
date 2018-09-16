@@ -79,6 +79,9 @@ public class AdminEventController {
         Event event = eventService.getOne(eventId);
         Result result = resultService.getOneByEvent(event);
         resultService.playerWinsPointInMatch(result, winnerOfPointId);
+        if(event.getStatus().equals(EventStatus.COMPLETED)){
+            return "redirect:/admin/event/all";
+        }
         return "redirect:/admin/event/" + eventId + "/running";
     }
 }

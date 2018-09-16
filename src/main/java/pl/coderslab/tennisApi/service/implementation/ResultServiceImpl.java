@@ -86,11 +86,17 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
+    public void playerWinsPointInMatch(Result result, int winnerOfPointId) {
+        tennisGameService.playerWinsPoint(result, getCurrentSet(result), getCurrentGame(result), playerService.getOne(winnerOfPointId));
+    }
+
+    @Override
     public void playerWinsSet(Result result, Player winnerOfSet) {
         if (endOfMatch(result, winnerOfSet)) {
             Player looser = result.getEvent().getPlayerOne().equals(winnerOfSet) ? result.getEvent().getPlayerTwo() : result.getEvent().getPlayerOne();
             result.setLooser(looser);
             result.setWinner(winnerOfSet);
+            result.getEvent().setStatus(EventStatus.COMPLETED);
             save(result);
         } else {
             tennisSetService.newSetInMatch(result);
@@ -105,9 +111,6 @@ public class ResultServiceImpl implements ResultService {
         return (setsWonByPlayerOne == 3);
     }
 
-    @Override
-    public void playerWinsPointInMatch(Result result, int winnerOfPointId) {
-        tennisGameService.playerWinsPoint(result, getCurrentSet(result), getCurrentGame(result), playerService.getOne(winnerOfPointId));
-    }
+
 
 }
