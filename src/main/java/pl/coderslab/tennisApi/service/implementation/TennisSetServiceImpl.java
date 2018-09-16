@@ -1,7 +1,6 @@
 package pl.coderslab.tennisApi.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennisApi.entity.Player;
 import pl.coderslab.tennisApi.entity.Result;
@@ -52,27 +51,6 @@ public class TennisSetServiceImpl implements TennisSetService {
         return tennisSetRepository.save(tennisSet);
     }
 
-
-//    @Override
-//    public void playerOneWinsGame(Result result) {
-//        resultService.getCurrentGame(result).setTennisGameWinner(result.getEvent().getPlayerOne());
-//        TennisSet currentSet = resultService.getCurrentSet(result);
-//        currentSet.setGamesWonByPlayerOne(currentSet.getGamesWonByPlayerOne()+1);
-//        if(currentSet.getGamesWonByPlayerOne()-currentSet.getGamesWonByPlayerTwo() == 2 && currentSet.getGamesWonByPlayerOne() >=6){
-//            resultService.playerOneWinsSet(result);
-//        }
-//
-//    }
-//
-//    @Override
-//    public void playerTwoWinsGame(Result result) {
-//        TennisSet currentSet = resultService.getCurrentSet(result);
-//        currentSet.setGamesWonByPlayerTwo(currentSet.getGamesWonByPlayerTwo()+1);
-//        if(currentSet.getGamesWonByPlayerTwo()-currentSet.getGamesWonByPlayerOne() == 2 && currentSet.getGamesWonByPlayerTwo() >=6){
-//            resultService.playerTwoWinsSet(result);
-//        }
-//    }
-
     @Override
     public void newSetInMatch(Result result) {
         TennisSet tennisSet = new TennisSet();
@@ -97,7 +75,8 @@ public class TennisSetServiceImpl implements TennisSetService {
 
     @Override
     public boolean endOfSet(TennisSet currentTennisSet) {
-        return (Math.abs(currentTennisSet.getGamesWonByPlayerOne() - currentTennisSet.getGamesWonByPlayerTwo()) >=2  && currentTennisSet.getGamesWonByPlayerOne() >= 6 || currentTennisSet.getGamesWonByPlayerTwo() >=6);
+        return (Math.abs(currentTennisSet.countGamesWonByPlayerOne() - currentTennisSet.countGamesWonByPlayerTwo()) >=2  &&
+                (currentTennisSet.countGamesWonByPlayerOne() >= 6 || currentTennisSet.countGamesWonByPlayerTwo() >=6));
     }
 
 

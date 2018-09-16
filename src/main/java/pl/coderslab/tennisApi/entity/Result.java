@@ -25,8 +25,13 @@ public class Result {
     @ManyToOne
     private Player looser;
 
+    private int tennisSetInMatchSequentNumber = 1;
+
     public void addSet(TennisSet tennisSet){
+        tennisSet.setSequenceNumber(tennisSetInMatchSequentNumber++);
         this.sets.add(tennisSet);
+
     }
+
 }
 

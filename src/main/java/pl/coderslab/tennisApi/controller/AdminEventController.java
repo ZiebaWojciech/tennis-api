@@ -27,7 +27,7 @@ public class AdminEventController {
     }
 
     @ModelAttribute
-    public void setModelAttributes(Model model){
+    public void setModelAttributes(Model model) {
         model.addAttribute("countries", Country.values());
         model.addAttribute("statuses", EventStatus.values());
         model.addAttribute("players", playerService.getAll());
@@ -41,7 +41,7 @@ public class AdminEventController {
 
     @RequestMapping(path = "/create", method = RequestMethod.POST)
     public String createEventPost(@Valid Event event, BindingResult result) {
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "create_event";
         }
         eventService.save(event);
@@ -58,25 +58,27 @@ public class AdminEventController {
     public String startEvent(@PathVariable int eventId, Model model) {
         Event event = eventService.getOne(eventId);
         Result result = eventService.startEvent(event);
-        return "redirect:/admin/event/"+eventId+"/running";
+        return "redirect:/admin/event/" + eventId + "/running";
     }
 
     @RequestMapping(path = "/{eventId}/running", method = RequestMethod.GET)
     public String runEvent(@PathVariable int eventId, Model model) {
         Event event = eventService.getOne(eventId);
         Result result = resultService.getOneByEvent(event);
-        TennisGame currentGame = resultService.getCurrentGame(result);
+        if(event.getStatus().equals(EventStatus.IN_PROGRESS)){
+            TennisGame currentGame = resultService.getCurrentGame(result);
+            model.addAttribute("currentGame", currentGame);
+        }
         model.addAttribute("event", event);
         model.addAttribute("result", result);
-        model.addAttribute("currentGame", currentGame);
         return "run_event";
     }
 
-    @RequestMapping(path = "/{eventId}/add-point", method = RequestMethod.POST    )
+    @RequestMapping(path = "/{eventId}/add-point", method = RequestMethod.POST)
     public String addPoint(@PathVariable int eventId, @RequestParam("playerId") int winnerOfPointId, Model model) {
         Event event = eventService.getOne(eventId);
         Result result = resultService.getOneByEvent(event);
         resultService.playerWinsPointInMatch(result, winnerOfPointId);
-        return "redirect:/admin/event/"+eventId+"/running";
+        return "redirect:/admin/event/" + eventId + "/running";
     }
 }

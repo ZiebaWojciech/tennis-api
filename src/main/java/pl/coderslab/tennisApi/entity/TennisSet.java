@@ -16,6 +16,8 @@ public class TennisSet {
     @ManyToOne(cascade = {CascadeType.ALL})
     Result result;
 
+    private int sequenceNumber;
+
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<TennisGame> games = new ArrayList<>();
 
@@ -26,5 +28,17 @@ public class TennisSet {
 
     public void addGame(TennisGame tennisGame){
         this.games.add(tennisGame);
+    }
+
+    public long countGamesWonByPlayerOne() {
+        return this.games.stream()
+                .filter(game -> result.getEvent().getPlayerOne().equals(game.getTennisGameWinner()))
+                .count();
+    }
+
+    public long countGamesWonByPlayerTwo() {
+        return this.games.stream()
+                .filter(game -> result.getEvent().getPlayerTwo().equals(game.getTennisGameWinner()))
+                .count();
     }
 }

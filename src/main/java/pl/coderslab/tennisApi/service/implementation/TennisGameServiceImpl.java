@@ -62,18 +62,8 @@ public class TennisGameServiceImpl implements TennisGameService {
 
     @Override
     public boolean endOfGame(TennisGame currentGame) {
-        return (Math.abs(currentGame.getPlayerOnePoints() - currentGame.getPlayerTwoPoints()) >= 2 && currentGame.getPlayerOnePoints() >= 4 || currentGame.getPlayerTwoPoints() >=4);
+        return (Math.abs(currentGame.getPlayerOnePoints() - currentGame.getPlayerTwoPoints()) >= 2 && (currentGame.getPlayerOnePoints() >= 4 || currentGame.getPlayerTwoPoints() >=4));
     }
-
-//    @Override
-//    public void playerTwoWinsPoint(Result result) {
-//        TennisGame currentGame = resultService.getCurrentGame(result);
-//        currentGame.setPlayerTwoPoints(currentGame.getPlayerTwoPoints() + 1);
-//        if (currentGame.getPlayerTwoPoints() - currentGame.getPlayerOnePoints() == 2 && currentGame.getPlayerTwoPoints() >= 4) {
-//            currentGame.setTennisGameWinner(result.getEvent().getPlayerTwo());
-//            tennisSetService.playerTwoWinsGame(result);
-//        }
-//    }
 
     @Override
     public void newGameInCurrentSet(TennisSet tennisSet) {

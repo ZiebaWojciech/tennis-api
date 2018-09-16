@@ -26,10 +26,10 @@
         <th th:text="*{event.playerOne.name}+' '+*{event.playerOne.surname}">  </th>
         <th th:text="*{event.playerTwo.name}+' '+*{event.playerTwo.surname}">  </th>
     </tr>
-    <tr th:each="set, iterStat : ${result.sets}" th:object="${set}">
-        <td th:text="'Set '+${iterStat.count}"> </td>
-        <td th:text="*{}"></td>
-        <td th:text="*{gamesWonByPlayerTwo}"></td>
+    <tr th:each="set : ${result.sets}" th:object="${set}">
+        <td th:text="'Set '+*{sequenceNumber}"> </td>
+        <td th:text="*{countGamesWonByPlayerOne()}"></td>
+        <td th:text="*{countGamesWonByPlayerTwo()}"></td>
     </tr>
     <tr>
         <td> Game </td>

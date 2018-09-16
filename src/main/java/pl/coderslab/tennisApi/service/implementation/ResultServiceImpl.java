@@ -85,44 +85,6 @@ public class ResultServiceImpl implements ResultService {
                 .orElse(null);
     }
 
-//    @Override
-//    public void playerOneWinsPoint(Result result) {
-//        TennisGame currentGame = getCurrentGame(result);
-//
-//        tennisSetService.playerOneWinsGame(result);
-//    }
-
-
-//    @Override
-//    public void playerOneWinsSet(Result result) {
-//        Player playerOne = result.getEvent().getPlayerOne();
-//        getCurrentSet(result).setTennisSetWinner(playerOne);
-//        long tennisSetWonByPlayerOne = result.getSets().stream()
-//                .filter(s -> s.getTennisSetWinner().equals(playerOne))
-//                .count();
-//        if (tennisSetWonByPlayerOne == 3) {
-//            playerOneWinsMatch(result);
-//        }
-//    }
-//
-//    @Override
-//    public void playerTwoWinsSet(Result result) {
-//        Player playerTwo = result.getEvent().getPlayerTwo();
-//        getCurrentSet(result).setTennisSetWinner(playerTwo);
-//        long tennisSetWonByPlayerOne = result.getSets().stream()
-//                .filter(s -> s.getTennisSetWinner().equals(playerTwo))
-//                .count();
-//        if (tennisSetWonByPlayerOne == 3) {
-//            playerTwoWinsMatch(result);
-//        }
-//    }
-
-//    @Override
-//    public void playerTwoWinsMatch(Result result) {
-//        result.setWinner(result.getEvent().getPlayerOne());
-//        result.setLooser(result.getEvent().getPlayerTwo());
-//    }
-
     @Override
     public void playerWinsSet(Result result, Player winnerOfSet) {
         if (endOfMatch(result, winnerOfSet)) {
@@ -143,11 +105,6 @@ public class ResultServiceImpl implements ResultService {
         return (setsWonByPlayerOne == 3);
     }
 
-    //    @Override
-//    public void playerOneWinsMatch(Result result) {
-//        result.setWinner(result.getEvent().getPlayerTwo());
-//        result.setLooser(result.getEvent().getPlayerOne());
-//    }
     @Override
     public void playerWinsPointInMatch(Result result, int winnerOfPointId) {
         tennisGameService.playerWinsPoint(result, getCurrentSet(result), getCurrentGame(result), playerService.getOne(winnerOfPointId));
