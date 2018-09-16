@@ -86,8 +86,8 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public void playerWinsPointInMatch(Result result, int winnerOfPointId) {
-        tennisGameService.playerWinsPoint(result, getCurrentSet(result), getCurrentGame(result), playerService.getOne(winnerOfPointId));
+    public void playerWinsPointInMatch(Result result, Player winnerOfPoint) {
+        tennisGameService.playerWinsPoint(result, getCurrentSet(result), getCurrentGame(result), winnerOfPoint);
     }
 
     @Override

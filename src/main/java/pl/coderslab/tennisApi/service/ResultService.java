@@ -17,7 +17,7 @@ public interface ResultService {
 
 
     void playerWinsSet(Result result, Player winnerOfSet);
-    void playerWinsPointInMatch(Result result, int winnerOfPointId);
+    void playerWinsPointInMatch(Result result, Player winnerOfPoint);
     boolean endOfMatch(Result result, Player winnerOfLastSet);
     //TODO adding games and sets?
 }

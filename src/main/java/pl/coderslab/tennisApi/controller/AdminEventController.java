@@ -1,11 +1,13 @@
 package pl.coderslab.tennisApi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.tennisApi.entity.*;
+import pl.coderslab.tennisApi.service.AutoEventResolverService;
 import pl.coderslab.tennisApi.service.EventService;
 import pl.coderslab.tennisApi.service.PlayerService;
 import pl.coderslab.tennisApi.service.ResultService;
@@ -18,12 +20,14 @@ public class AdminEventController {
     private final PlayerService playerService;
     private final EventService eventService;
     private final ResultService resultService;
+    private final AutoEventResolverService autoEventResolverService;
 
     @Autowired
-    public AdminEventController(PlayerService playerService, EventService eventService, ResultService resultService) {
+    public AdminEventController(PlayerService playerService, EventService eventService, ResultService resultService, AutoEventResolverService autoEventResolverService) {
         this.playerService = playerService;
         this.eventService = eventService;
         this.resultService = resultService;
+        this.autoEventResolverService = autoEventResolverService;
     }
 
     @ModelAttribute
@@ -65,7 +69,7 @@ public class AdminEventController {
     public String runEvent(@PathVariable int eventId, Model model) {
         Event event = eventService.getOne(eventId);
         Result result = resultService.getOneByEvent(event);
-        if(event.getStatus().equals(EventStatus.IN_PROGRESS)){
+        if (event.getStatus().equals(EventStatus.IN_PROGRESS)) {
             TennisGame currentGame = resultService.getCurrentGame(result);
             model.addAttribute("currentGame", currentGame);
         }
@@ -78,10 +82,26 @@ public class AdminEventController {
     public String addPoint(@PathVariable int eventId, @RequestParam("playerId") int winnerOfPointId, Model model) {
         Event event = eventService.getOne(eventId);
         Result result = resultService.getOneByEvent(event);
-        resultService.playerWinsPointInMatch(result, winnerOfPointId);
-        if(event.getStatus().equals(EventStatus.COMPLETED)){
+        resultService.playerWinsPointInMatch(result, playerService.getOne(winnerOfPointId));
+        if (event.getStatus().equals(EventStatus.COMPLETED)) {
             return "redirect:/admin/event/all";
         }
         return "redirect:/admin/event/" + eventId + "/running";
+    }
+
+    /**As spring does not allow to use @Scheduled with methods with arguments
+     * the event id has to be entered manually for now. The method is only for presentation puropses.
+     *
+     * @return
+     */
+    @Scheduled(fixedRate = 3000L)
+    @ResponseBody
+    @RequestMapping(path = "/auto", method = RequestMethod.GET)
+    public void runEventAuto() {
+        Event event = eventService.getOne(4); //TODO << put id here
+        if(event.getStatus().equals(EventStatus.IN_PROGRESS)){
+            autoEventResolverService.setPlayerOneChancesToWin(50);
+            resultService.playerWinsPointInMatch(event.getResult(), autoEventResolverService.pointRandomize(event));
+        }
     }
 }
