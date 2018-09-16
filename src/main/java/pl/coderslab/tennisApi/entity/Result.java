@@ -1,7 +1,6 @@
 package pl.coderslab.tennisApi.entity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -19,7 +18,7 @@ public class Result {
     @OneToOne
     private Event event;
 
-    @OneToMany(mappedBy = "result")
+    @OneToMany(mappedBy = "result", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<TennisSet> sets = new ArrayList<>();
     @ManyToOne
     private Player winner; //TODO probably will be redundant

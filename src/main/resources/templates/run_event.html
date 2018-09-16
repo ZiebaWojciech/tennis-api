@@ -32,8 +32,8 @@
         <td th:text="*{gamesWonByPlayerTwo}"></td>
     </tr>
 </table>
-<form>
-    <input name="playerOneWinsPoint" th:value="'Point for '+${event.playerOne.surname}" type="submit">
+<form method="post" th:action="@{/admin/event/{event_id}/point(event_id=${event.id})}">
+    <input name="playerOneWinsPoint" th:value="'Point for '+${event.playerOne.surname}" th:text="'Inny tekst'" type="submit">
     <input name="playerOneWinsPoint" th:value="'Point for '+${event.playerTwo.surname}" type="submit">
 </form>
 </body>

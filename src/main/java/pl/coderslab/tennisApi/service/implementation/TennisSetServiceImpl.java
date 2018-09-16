@@ -17,15 +17,25 @@ import java.util.List;
 public class TennisSetServiceImpl implements TennisSetService {
     private final TennisSetRepository tennisSetRepository;
 
-    private final TennisGameService tennisGameService;
-    private final ResultService resultService;
+    private TennisGameService tennisGameService;
+    private ResultService resultService;
 
     @Autowired
-    public TennisSetServiceImpl(TennisSetRepository tennisSetRepository, ResultService resultService, TennisGameService tennisGameService) {
+    public TennisSetServiceImpl(TennisSetRepository tennisSetRepository) {
         this.tennisSetRepository = tennisSetRepository;
-        this.resultService = resultService;
+
+    }
+
+    @Autowired
+    public void setTennisGameService(TennisGameService tennisGameService) {
         this.tennisGameService = tennisGameService;
     }
+
+    @Autowired
+    public void setResultService(ResultService resultService) {
+        this.resultService = resultService;
+    }
+
 
     @Override
     public TennisSet getOne(int id) {
@@ -41,7 +51,6 @@ public class TennisSetServiceImpl implements TennisSetService {
     public TennisSet save(TennisSet tennisSet) {
         return tennisSetRepository.save(tennisSet);
     }
-
 
 
 //    @Override
@@ -75,14 +84,16 @@ public class TennisSetServiceImpl implements TennisSetService {
 
     @Override
     public void playerWinsGame(TennisSet currentTennisSet, Player winnerOfGame) {
-        if(endOfSet(currentTennisSet)){
+        if (endOfSet(currentTennisSet)) {
             currentTennisSet.setTennisSetWinner(winnerOfGame);
             resultService.playerWinsSet(currentTennisSet.getResult(), winnerOfGame);
         }
     }
+
     @Override
     public boolean endOfSet(TennisSet currentTennisSet) {
-        return (currentTennisSet.getGamesWonByPlayerOne()-currentTennisSet.getGamesWonByPlayerTwo() == 2 && currentTennisSet.getGamesWonByPlayerOne() >=6);
+        return (currentTennisSet.getGamesWonByPlayerOne() - currentTennisSet.getGamesWonByPlayerTwo() == 2 && currentTennisSet.getGamesWonByPlayerOne() >= 6);
     }
+
 
 }

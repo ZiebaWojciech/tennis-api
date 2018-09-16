@@ -15,14 +15,19 @@ import java.util.List;
 @Service
 public class TennisGameServiceImpl implements TennisGameService {
     private final TennisGameRepository tennisGameRepository;
-
-    private final TennisSetService tennisSetService;
+    private TennisSetService tennisSetService;
 
     @Autowired
-    public TennisGameServiceImpl(TennisGameRepository tennisGameRepository, TennisSetService tennisSetService) {
+    public TennisGameServiceImpl(TennisGameRepository tennisGameRepository) {
         this.tennisGameRepository = tennisGameRepository;
+    }
+
+    @Autowired
+    public void setTennisSetService(TennisSetService tennisSetService) {
         this.tennisSetService = tennisSetService;
     }
+
+
 
     @Override
     public TennisGame getOne(int id) {
@@ -70,6 +75,7 @@ public class TennisGameServiceImpl implements TennisGameService {
         tennisSet.addGame(game);
         tennisSetService.save(tennisSet);
     }
+
 
 
 }

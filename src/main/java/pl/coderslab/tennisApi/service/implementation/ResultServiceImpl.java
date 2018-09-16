@@ -15,13 +15,21 @@ import java.util.Optional;
 public class ResultServiceImpl implements ResultService {
     private final ResultRepository resultRepository;
 
-    private final TennisGameService tennisGameService;
-    private final TennisSetService tennisSetService;
+    private TennisGameService tennisGameService;
+    private TennisSetService tennisSetService;
 
     @Autowired
-    public ResultServiceImpl(ResultRepository resultRepository, TennisGameService tennisGameService, TennisSetService tennisSetService) {
+    public ResultServiceImpl(ResultRepository resultRepository) {
         this.resultRepository = resultRepository;
+    }
+
+    @Autowired
+    public void setTennisGameService(TennisGameService tennisGameService) {
         this.tennisGameService = tennisGameService;
+    }
+
+    @Autowired
+    public void setTennisSetService(TennisSetService tennisSetService) {
         this.tennisSetService = tennisSetService;
     }
 
@@ -45,9 +53,6 @@ public class ResultServiceImpl implements ResultService {
     public Result startEvent(Event event) {
         Result result = new Result();
         result.setEvent(event);
-        TennisSet tennisSet = new TennisSet();
-        tennisSet.setInPlay(true);
-        tennisGameService.newGameInCurrentSet(result);
         tennisSetService.newSetInMatch(result);
         return resultRepository.save(result);
     }
@@ -126,7 +131,7 @@ public class ResultServiceImpl implements ResultService {
         return (setsWonByPlayerOne == 3);
     }
 
-//    @Override
+    //    @Override
 //    public void playerOneWinsMatch(Result result) {
 //        result.setWinner(result.getEvent().getPlayerTwo());
 //        result.setLooser(result.getEvent().getPlayerOne());
@@ -136,4 +141,6 @@ public class ResultServiceImpl implements ResultService {
         tennisGameService.playerWinsPoint(currentSet, currentGame, winnerOfPoint);
 
     }
+
+
 }

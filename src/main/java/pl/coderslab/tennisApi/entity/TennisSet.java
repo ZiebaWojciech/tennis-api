@@ -16,7 +16,7 @@ public class TennisSet {
     @ManyToOne
     Result result;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<TennisGame> games = new ArrayList<>();
 
     private boolean inPlay;

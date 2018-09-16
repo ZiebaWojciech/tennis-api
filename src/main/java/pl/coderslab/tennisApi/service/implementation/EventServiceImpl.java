@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennisApi.entity.*;
 import pl.coderslab.tennisApi.repository.EventRepository;
-import pl.coderslab.tennisApi.repository.ResultRepository;
-import pl.coderslab.tennisApi.repository.TennisGameRepository;
-import pl.coderslab.tennisApi.repository.TennisSetRepository;
 import pl.coderslab.tennisApi.service.EventService;
 import pl.coderslab.tennisApi.service.ResultService;
 
