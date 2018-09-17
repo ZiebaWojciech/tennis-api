@@ -34,6 +34,5 @@ public class Event {
     @NotNull
     @Enumerated(EnumType.STRING)
     private EventStatus status;
-    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    private Result result;
+
 }

@@ -9,10 +9,7 @@ public interface TennisGameService {
     List<TennisGame> getAll();
     TennisGame save(TennisGame tennisGame);
 
-    void playerWinsPoint(Event event, Player winnerOfPoint);
-    void newGameInCurrentSet(Event event);
-    boolean endOfGame(Event event);
-    //    void playerWinsPoint(Result result, TennisSet tennisSet, TennisGame currentGame, Player winnerOfPoint);
-//    boolean endOfGame(TennisGame currentGame);
-//    void newGameInCurrentSet(TennisSet tennisSet);
+    void playerWinsPoint(Result result, Player winnerOfPoint);
+    void newGameInCurrentSet(Result result);
+    boolean endOfGame(Result result);
 }

@@ -12,8 +12,4 @@ public interface EventService {
     Event getOne(int id);
     List<Event> getAll();
     Event save(Event event);
-
-    void startEvent(Event event);
-    void endOfMatch(Event event, Player winnerOfLastSet);
-
 }

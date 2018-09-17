@@ -40,22 +40,5 @@ public class EventServiceImpl implements EventService {
         return eventRepository.save(event);
     }
 
-    @Override
-    public void startEvent(Event event) {
-        event.setStatus(EventStatus.IN_PROGRESS);
-        Result result = new Result();
-        event.setResult(result);
-        tennisSetService.newSetInMatch(event);
-        eventRepository.save(event);
-    }
-
-    @Override
-    public void endOfMatch(Event event, Player winnerOfSet) {
-        Player looser = event.getPlayerOne().equals(winnerOfSet) ? event.getPlayerTwo() : event.getPlayerOne();
-        event.getResult().setLooser(looser);
-        event.getResult().setWinner(winnerOfSet);
-        event.setStatus(EventStatus.COMPLETED);
-        save(event);
-    }
 
 }

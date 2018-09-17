@@ -48,19 +48,19 @@ public class TennisGameServiceImpl implements TennisGameService {
     }
 
     @Override
-    public void playerWinsPoint(Event event, Player winnerOfPoint) {
-        TennisGame currentTennisGame = resultService.getCurrentGame(event);
+    public void playerWinsPoint(Result result, Player winnerOfPoint) {
+        TennisGame currentTennisGame = resultService.getCurrentGame(result);
 //        addPointToPlayer(currentTennisGame, winnerOfPoint);//TODO
-        if (winnerOfPoint.equals(event.getPlayerOne())) {
+        if (winnerOfPoint.equals(result.getEvent().getPlayerOne())) {
             currentTennisGame.setPlayerOnePoints(currentTennisGame.getPlayerOnePoints() + 1);
         } else {
             currentTennisGame.setPlayerTwoPoints(currentTennisGame.getPlayerTwoPoints() + 1);
         }
 
-        if (endOfGame(event)) {
+        if (endOfGame(result)) {
             currentTennisGame.setTennisGameWinner(winnerOfPoint);
             currentTennisGame.setInPlay(false);
-            tennisSetService.playerWinsGame(event, winnerOfPoint);
+            tennisSetService.playerWinsGame(result, winnerOfPoint);
 
         }
         save(currentTennisGame);
@@ -70,16 +70,16 @@ public class TennisGameServiceImpl implements TennisGameService {
 //    }
 
     @Override
-    public boolean endOfGame(Event event) {
-        TennisGame currentTennisGame = resultService.getCurrentGame(event);
+    public boolean endOfGame(Result result) {
+        TennisGame currentTennisGame = resultService.getCurrentGame(result);
         return (Math.abs(currentTennisGame.getPlayerOnePoints() - currentTennisGame.getPlayerTwoPoints()) >= 2 && (currentTennisGame.getPlayerOnePoints() >= 4 || currentTennisGame.getPlayerTwoPoints() >=4));
     }
 
     @Override
-    public void newGameInCurrentSet(Event event) {
+    public void newGameInCurrentSet(Result result) {
         TennisGame game = new TennisGame();
         game.setInPlay(true);
-        TennisSet currentTennisSet = resultService.getCurrentSet(event);
+        TennisSet currentTennisSet = resultService.getCurrentSet(result);
         currentTennisSet.addGame(game);
         tennisSetService.save(currentTennisSet);
     }

@@ -6,14 +6,23 @@ import java.util.List;
 
 public interface ResultService {
     Result getOne(int id);
+    Result getOneByEvent(Event event);
+
     List<Result> getAll();
+
     Result save(Result result);
 
-    TennisSet getCurrentSet(Event event);
-    TennisGame getCurrentGame(Event event);
+    TennisSet getCurrentSet(Result result);
+
+    TennisGame getCurrentGame(Result result);
 
 
-    void playerWinsSet(Event event, Player winnerOfSet);
-    void playerWinsPointInMatch(Event event, Player winnerOfPoint);
-//    void endOfMatch(Event event, Player winnerOfLastSet);
+    void playerWinsSet(Result result, Player winnerOfSet);
+
+    void playerWinsPointInMatch(Result result, Player winnerOfPoint);
+
+    void endOfMatch(Result result, Player winnerOfLastSet);
+
+    void startEvent(Event event);
+
 }
