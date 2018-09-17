@@ -176,16 +176,16 @@ INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, playe
 INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (176, '2018-05-21', 309, 191, 9);
 INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (177, '2018-05-21', 84, 444, 6);
 INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (178, '2018-05-21', 36, 664, 10);
-INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (179, '2018-05-28', 8770, 1, 1);
-INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (180, '2018-05-28', 8670, 2, 2);
-INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (181, '2018-05-28', 4450, 6, 4);
-INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (182, '2018-05-28', 1950, 17, 7);
-INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (183, '2018-05-28', 1665, 22, 3);
-INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (184, '2018-05-28', 5, 1233, 8);
-INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (185, '2018-05-28', 309, 192, 9);
-INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (186, '2018-05-28', 84, 445, 6);
-INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (187, '2018-05-28', 37, 660, 10);
-INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (188, '2018-05-28', 18, 858, 5);
+INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (179, '2018-09-17', 8770, 1, 1);
+INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (180, '2018-09-17', 8670, 2, 2);
+INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (181, '2018-09-17', 4450, 6, 4);
+INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (182, '2018-09-17', 1950, 17, 7);
+INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (183, '2018-09-17', 1665, 22, 3);
+INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (184, '2018-09-17', 5, 1233, 8);
+INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (185, '2018-09-17', 309, 192, 9);
+INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (186, '2018-09-17', 84, 445, 6);
+INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (187, '2018-09-17', 37, 660, 10);
+INSERT INTO tennis_atp_datasource.atp_ranking (id, date, points, standing, player_id) VALUES (188, '2018-09-17', 18, 858, 5);
 
 INSERT INTO tennis_atp_datasource.event (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (1, 'ESP', 'SCHEDULED', '2018-09-16 20:00:00', 2, 3);
 INSERT INTO tennis_atp_datasource.event (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (2, 'ESP', 'SCHEDULED', '2018-09-16 20:00:00', 1, 5);

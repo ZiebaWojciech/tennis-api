@@ -2,9 +2,9 @@ package pl.coderslab.tennisApi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.coderslab.tennisApi.entity.enumUtil.Country;
+import pl.coderslab.tennisApi.entity.enumUtil.EventStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Getter
-@Setter
 @Data
 public class Event {
     @Id
@@ -34,5 +32,4 @@ public class Event {
     @NotNull
     @Enumerated(EnumType.STRING)
     private EventStatus status;
-
 }

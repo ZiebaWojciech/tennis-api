@@ -3,6 +3,7 @@ package pl.coderslab.tennisApi.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.tennisApi.entity.*;
+import pl.coderslab.tennisApi.entity.enumUtil.EventStatus;
 import pl.coderslab.tennisApi.repository.ResultRepository;
 import pl.coderslab.tennisApi.service.*;
 

@@ -66,7 +66,7 @@ public class TennisGameServiceImpl implements TennisGameService {
         save(currentTennisGame);
     }
 
-//    private void addPointToPlayer(TennisGame currentGame, Player winnerOfPoint) {
+//    private void addPointToPlayer(TennisGame currentGame, PlayerDTO winnerOfPoint) {
 //    }
 
     @Override

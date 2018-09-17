@@ -1,4 +1,4 @@
-package pl.coderslab.tennisApi.entity;
+package pl.coderslab.tennisApi.entity.enumUtil;
 
 public enum Country {
     ESP,

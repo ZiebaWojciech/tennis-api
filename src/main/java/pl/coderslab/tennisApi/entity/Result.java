@@ -1,6 +1,7 @@
 package pl.coderslab.tennisApi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,9 +10,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Getter
-@Setter
 @Data
 public class Result {
     @Id
@@ -30,7 +30,7 @@ public class Result {
     private int setsWonByPlayerOne;
     private int setsWonByPlayerTwo;
 
-//    @JsonIgnore
+    @JsonIgnore
     private int tennisSetInMatchSequentNumber = 1;
 
     public void addSet(TennisSet tennisSet){

@@ -25,14 +25,14 @@
     <p>Player one:
         <select th:field="*{playerOne}">
             <option value=""> -- </option>
-            <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}+' '+${player.surname}"> Player one </option>
+            <option th:each="playerDTO : ${players}" th:value="${playerDTO.id}" th:text="${playerDTO.name}+' '+${playerDTO.surname}"> Player one </option>
         </select>
     </p>
     <p th:if="${#fields.hasErrors('playerOne')}" th:errors="*{playerOne}">playerOne Error</p>
     <p>Player two:
         <select th:field="*{playerTwo}">
             <option value=""> -- </option>
-            <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}+' '+${player.surname}"> Player two</option>
+            <option th:each="playerDTO : ${players}" th:value="${playerDTO.id}" th:text="${playerDTO.name}+' '+${playerDTO.surname}"> Player two</option>
         </select>
     </p>
     <p th:if="${#fields.hasErrors('playerTwo')}" th:errors="*{playerTwo}">playerTwo Error</p>

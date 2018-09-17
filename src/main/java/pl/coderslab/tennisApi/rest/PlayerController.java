@@ -1,32 +1,42 @@
 package pl.coderslab.tennisApi.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pl.coderslab.tennisApi.entity.Country;
+//import pl.coderslab.tennisApi.dto.PlayerDTO;
+import pl.coderslab.tennisApi.entity.AtpRankingPosition;
 import pl.coderslab.tennisApi.entity.Player;
-import pl.coderslab.tennisApi.repository.PlayerRepository;
+import pl.coderslab.tennisApi.service.AtpRankingPositionService;
+import pl.coderslab.tennisApi.service.PlayerService;
 
-import java.sql.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/players")
+@RequestMapping("/api/players")
 public class PlayerController {
-    private final PlayerRepository playerRepository;
+    private PlayerService playerService;
+    private AtpRankingPositionService atpRankingPositionService;
 
-    @Autowired
-    public PlayerController(PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
+    public PlayerController(PlayerService playerService, AtpRankingPositionService atpRankingPositionService) {
+        this.playerService = playerService;
+        this.atpRankingPositionService = atpRankingPositionService;
     }
+
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Player players(){
-        return new Player(1, "Mike", "Higgins", Country.GBR, Date.valueOf("2000-02-02"));
-    }
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Player> getAllPlayers(){
-        return playerRepository.findAll();
+        return playerService.getAll();
+    }
+//    @RequestMapping(value = "/dto/{playerId}", method = RequestMethod.GET)
+//    public PlayerDTO getPlayerDTO(@PathVariable int playerId){
+//        Player player = playerService.getOne(playerId);
+//        List<AtpRankingPosition> playersAtpRanking = atpRankingPositionService.getAllByPlayerId(playerId);
+//        return new PlayerDTO(player, playersAtpRanking);
+//    }
+
+    @RequestMapping(value = "/{playerId}", method = RequestMethod.GET)
+    public Player getOnePlayer(@PathVariable int playerId){
+        return playerService.getOne(playerId);
     }
 }

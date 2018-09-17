@@ -8,13 +8,12 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "atp_ranking")
-@Getter
 @Data
 public class AtpRankingPosition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne
+    @ManyToOne
     private Player player;
     private LocalDate date;
     private int points;

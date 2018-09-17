@@ -1,19 +1,18 @@
 package pl.coderslab.tennisApi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.tennisApi.entity.*;
+import pl.coderslab.tennisApi.entity.enumUtil.Country;
+import pl.coderslab.tennisApi.entity.enumUtil.EventStatus;
 import pl.coderslab.tennisApi.service.AutoEventResolverService;
 import pl.coderslab.tennisApi.service.EventService;
 import pl.coderslab.tennisApi.service.PlayerService;
 import pl.coderslab.tennisApi.service.ResultService;
 
-import javax.persistence.SqlResultSetMapping;
 import javax.validation.Valid;
 
 @Controller
