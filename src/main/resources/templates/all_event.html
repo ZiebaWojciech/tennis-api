@@ -16,15 +16,10 @@
         <td th:text="*{playerOne.name}+' '+*{playerOne.surname}+' vs '+*{playerTwo.name}+' '+*{playerTwo.surname}"></td>
         <td th:text="*{timeOfStart}"></td>
         <td th:text="*{status}"></td>
-        <td><a  th:href="@{/admin/event/{event_id}/start(event_id=${event.id})}"  th:text="'Start event'">
-            hej <span > </span>
-        </a> </td>
-        <td><a th:href="@{/admin/event/{event_id}/running(event_id=${event.id})}" th:text="'Manage event in progress'">
-            hej <span> </span>
-        </a></td>
-        <td><a th:href="@{/admin/event/{event_id}/auto(event_id=${event.id})}" th:text="'Auto running the match'">
-            hej <span> </span>
-        </a></td>
+        <td th:switch="*{status.name()}">
+            <a th:case="'SCHEDULED'" th:href="@{/admin/event/{event_id}/start(event_id=${event.id})}"  th:text="'Start event'"></a>
+            <a th:case="'IN_PROGRESS'" th:href="@{/admin/event/{event_id}/running(event_id=${event.id})}" th:text="'Manage event in progress'"></a>
+        </td>
     </tr>
 </table>
 </body>

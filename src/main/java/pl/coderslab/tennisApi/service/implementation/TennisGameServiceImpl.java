@@ -50,7 +50,6 @@ public class TennisGameServiceImpl implements TennisGameService {
     @Override
     public void playerWinsPoint(Event event, Player winnerOfPoint) {
         TennisGame currentTennisGame = resultService.getCurrentGame(event);
-        TennisSet currentTennisSet = resultService.getCurrentSet(event);
 //        addPointToPlayer(currentTennisGame, winnerOfPoint);//TODO
         if (winnerOfPoint.equals(event.getPlayerOne())) {
             currentTennisGame.setPlayerOnePoints(currentTennisGame.getPlayerOnePoints() + 1);

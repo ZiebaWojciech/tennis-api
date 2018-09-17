@@ -14,6 +14,7 @@ public class ResultServiceImpl implements ResultService {
 
     private TennisGameService tennisGameService;
     private TennisSetService tennisSetService;
+    private EventService eventService;
 
     @Autowired
     public ResultServiceImpl(ResultRepository resultRepository) {
@@ -28,6 +29,11 @@ public class ResultServiceImpl implements ResultService {
     @Autowired
     public void setTennisSetService(TennisSetService tennisSetService) {
         this.tennisSetService = tennisSetService;
+    }
+
+    @Autowired
+    public void setEventService(EventService eventService) {
+        this.eventService = eventService;
     }
 
     @Override
@@ -75,20 +81,21 @@ public class ResultServiceImpl implements ResultService {
             event.getResult().setSetsWonByPlayerTwo(event.getResult().getSetsWonByPlayerTwo() + 1);
         }
         if (event.getResult().getSets().stream().filter(s -> s.getTennisSetWinner().equals(winnerOfSet)).count() == 3) {
-            endOfMatch(event, winnerOfSet);
+            eventService.endOfMatch(event, winnerOfSet);
         } else {
             tennisSetService.newSetInMatch(event);
         }
     }
 
-    @Override
-    public void endOfMatch(Event event, Player winnerOfSet) {
-        Player looser = event.getPlayerOne().equals(winnerOfSet) ? event.getPlayerTwo() : event.getPlayerOne();
-        event.getResult().setLooser(looser);
-        event.getResult().setWinner(winnerOfSet);
-        event.setStatus(EventStatus.COMPLETED);
-        save(event.getResult());
-    }
+
+//    @Override
+//    public void endOfMatch(Event event, Player winnerOfSet) {
+//        Player looser = event.getPlayerOne().equals(winnerOfSet) ? event.getPlayerTwo() : event.getPlayerOne();
+//        event.getResult().setLooser(looser);
+//        event.getResult().setWinner(winnerOfSet);
+//        event.setStatus(EventStatus.COMPLETED);
+//        save(event.getResult());
+//    }
 
 
 

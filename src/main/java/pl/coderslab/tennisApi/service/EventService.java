@@ -2,6 +2,7 @@ package pl.coderslab.tennisApi.service;
 
 import pl.coderslab.tennisApi.entity.AtpRankingPosition;
 import pl.coderslab.tennisApi.entity.Event;
+import pl.coderslab.tennisApi.entity.Player;
 import pl.coderslab.tennisApi.entity.Result;
 
 import java.time.LocalDate;
@@ -13,5 +14,6 @@ public interface EventService {
     Event save(Event event);
 
     void startEvent(Event event);
+    void endOfMatch(Event event, Player winnerOfLastSet);
 
 }

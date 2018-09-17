@@ -15,5 +15,5 @@ public interface ResultService {
 
     void playerWinsSet(Event event, Player winnerOfSet);
     void playerWinsPointInMatch(Event event, Player winnerOfPoint);
-    void endOfMatch(Event event, Player winnerOfLastSet);
+//    void endOfMatch(Event event, Player winnerOfLastSet);
 }

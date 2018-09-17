@@ -34,9 +34,6 @@ public class Event {
     @NotNull
     @Enumerated(EnumType.STRING)
     private EventStatus status;
-    @OneToOne(
-//            mappedBy = "event",
-            cascade = {CascadeType.ALL},
-            orphanRemoval = true)
+    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
     private Result result;
 }

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.tennisApi.entity.*;
 import pl.coderslab.tennisApi.repository.EventRepository;
 import pl.coderslab.tennisApi.service.EventService;
-import pl.coderslab.tennisApi.service.ResultService;
 import pl.coderslab.tennisApi.service.TennisSetService;
 
 import java.util.List;
@@ -13,14 +12,12 @@ import java.util.List;
 @Service
 public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
-    private final ResultService resultService;
     private TennisSetService tennisSetService;
 
 
     @Autowired
-    public EventServiceImpl(EventRepository eventRepository, ResultService resultService) {
+    public EventServiceImpl(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
-        this.resultService = resultService;
     }
 
     @Autowired
@@ -50,6 +47,15 @@ public class EventServiceImpl implements EventService {
         event.setResult(result);
         tennisSetService.newSetInMatch(event);
         eventRepository.save(event);
+    }
+
+    @Override
+    public void endOfMatch(Event event, Player winnerOfSet) {
+        Player looser = event.getPlayerOne().equals(winnerOfSet) ? event.getPlayerTwo() : event.getPlayerOne();
+        event.getResult().setLooser(looser);
+        event.getResult().setWinner(winnerOfSet);
+        event.setStatus(EventStatus.COMPLETED);
+        save(event);
     }
 
 }
