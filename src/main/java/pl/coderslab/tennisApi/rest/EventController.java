@@ -28,8 +28,7 @@ public class EventController {
 
     @RequestMapping(value = "/{eventId}", method = RequestMethod.GET)
     public Event getOneEvent(@PathVariable int eventId){
-        Event event =  eventService.getOne(eventId);
-        return event;
+        return  eventService.getOne(eventId);
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)

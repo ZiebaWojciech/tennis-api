@@ -17,4 +17,5 @@ public class AdminController {
         return "admin_page";
     }
 
+
 }

@@ -191,6 +191,7 @@ INSERT INTO tennis_atp_datasource.event (id, country, status, time_of_start, pla
 INSERT INTO tennis_atp_datasource.event (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (2, 'ESP', 'SCHEDULED', '2018-09-16 20:00:00', 1, 5);
 INSERT INTO tennis_atp_datasource.event (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (3, 'ESP', 'SCHEDULED', '2018-09-16 10:10:00', 2, 1);
 INSERT INTO tennis_atp_datasource.event (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (4, 'ESP', 'SCHEDULED', '2018-09-16 10:01:00', 1, 2);
+INSERT INTO tennis_atp_datasource.event (id, country, status, time_of_start, player_one_id, player_two_id) VALUES (5, 'GBR', 'SCHEDULED', '2019-09-16 10:01:00', 2, 4);
 
 INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (1, '1986-06-03', 'ESP', 'Rafael', 'Nadal');
 INSERT INTO tennis_atp_datasource.player (id, birthday, country_code, name, surname) VALUES (2, '1981-08-08', 'SUI', 'Roger', 'Federer');

@@ -1,7 +1,9 @@
 package pl.coderslab.tennisApi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.tennisApi.entity.enumUtil.Country;
 import pl.coderslab.tennisApi.entity.enumUtil.EventStatus;
@@ -25,9 +27,11 @@ public class Event {
     private LocalDateTime timeOfStart;
     @NotNull
     @ManyToOne
+    @JsonIgnoreProperties({"countryCode", "birthday"})
     private Player playerOne;
     @NotNull
     @ManyToOne
+    @JsonIgnoreProperties({"countryCode", "birthday"})
     private Player playerTwo;
     @NotNull
     @Enumerated(EnumType.STRING)
