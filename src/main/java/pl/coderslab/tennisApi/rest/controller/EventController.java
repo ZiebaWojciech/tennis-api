@@ -1,4 +1,4 @@
-package pl.coderslab.tennisApi.rest;
+package pl.coderslab.tennisApi.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,6 @@ public class EventController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Event> getAllEvents(){
-        System.out.println("rest dziala na " + Thread.currentThread().getName());
         return eventService.getAll();
     }
 

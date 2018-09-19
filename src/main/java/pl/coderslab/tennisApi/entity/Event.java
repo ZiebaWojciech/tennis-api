@@ -27,11 +27,11 @@ public class Event {
     private LocalDateTime timeOfStart;
     @NotNull
     @ManyToOne
-    @JsonIgnoreProperties({"countryCode", "birthday"})
+//    @JsonIgnoreProperties({"countryCode", "birthday"})
     private Player playerOne;
     @NotNull
     @ManyToOne
-    @JsonIgnoreProperties({"countryCode", "birthday"})
+//    @JsonIgnoreProperties({"countryCode", "birthday"}) //TODO refactor what is sent
     private Player playerTwo;
     @NotNull
     @Enumerated(EnumType.STRING)
