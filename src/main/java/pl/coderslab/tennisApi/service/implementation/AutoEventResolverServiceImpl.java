@@ -43,7 +43,6 @@ public class AutoEventResolverServiceImpl implements AutoEventResolverService {
     public int chanceRandomize() {
         Random random = new Random();
         int randomNumber = random.nextInt(101);
-        System.out.println(randomNumber + Thread.currentThread().getName());
         return randomNumber;
     }
 
@@ -57,8 +56,20 @@ public class AutoEventResolverServiceImpl implements AutoEventResolverService {
      *
      * @return
      */
-    @Scheduled(fixedRate = 500L)
-    public void runEventAuto() {
+    @Scheduled(fixedRate = 200L)
+    public void runEventAuto5() {
+        Event event = eventService.getOne(5); //TODO << put id here (parametrize)
+        Result result = resultService.getOneByEvent(event);
+        if (event.getStatus().equals(EventStatus.IN_PROGRESS)) {
+            setPlayerOneChancesToWin(90); //TODO << put chances for playerOne to win here (parametrize)
+            resultService.playerWinsPointInMatch(result, pointAssign(event));
+        }
+        if(event.getPlayerOne().equals(EventStatus.COMPLETED)){
+            stopEventAuto();
+        }
+    }
+    @Scheduled(fixedRate = 200L)
+    public void runEventAuto4() {
         Event event = eventService.getOne(4); //TODO << put id here (parametrize)
         Result result = resultService.getOneByEvent(event);
         if (event.getStatus().equals(EventStatus.IN_PROGRESS)) {
@@ -69,6 +80,34 @@ public class AutoEventResolverServiceImpl implements AutoEventResolverService {
             stopEventAuto();
         }
     }
+    @Scheduled(fixedRate = 200L)
+    public void runEventAuto3() {
+        Event event = eventService.getOne(3); //TODO << put id here (parametrize)
+        Result result = resultService.getOneByEvent(event);
+        if (event.getStatus().equals(EventStatus.IN_PROGRESS)) {
+            setPlayerOneChancesToWin(70); //TODO << put chances for playerOne to win here (parametrize)
+            resultService.playerWinsPointInMatch(result, pointAssign(event));
+        }
+        if(event.getPlayerOne().equals(EventStatus.COMPLETED)){
+            stopEventAuto();
+        }
+    }
+    @Scheduled(fixedRate = 200L)
+    public void runEventAuto2() {
+        Event event = eventService.getOne(2); //TODO << put id here (parametrize)
+        Result result = resultService.getOneByEvent(event);
+        if (event.getStatus().equals(EventStatus.IN_PROGRESS)) {
+            setPlayerOneChancesToWin(10); //TODO << put chances for playerOne to win here (parametrize)
+            resultService.playerWinsPointInMatch(result, pointAssign(event));
+        }
+        if(event.getPlayerOne().equals(EventStatus.COMPLETED)){
+            stopEventAuto();
+        }
+    }
+
+
+
+
 
     public void stopEventAuto() {
         taskScheduler.shutdown();

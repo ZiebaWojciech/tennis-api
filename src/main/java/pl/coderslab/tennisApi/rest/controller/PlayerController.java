@@ -28,12 +28,12 @@ public class PlayerController {
     public List<Player> getAllPlayers(){
         return playerService.getAll();
     }
-//    @RequestMapping(value = "/dto/{playerId}", method = RequestMethod.GET)
-//    public PlayerDTO getPlayerDTO(@PathVariable int playerId){
-//        Player player = playerService.getOne(playerId);
+    @RequestMapping(value = "/dto/{playerId}", method = RequestMethod.GET)
+    public Player getPlayerDTO(@PathVariable int playerId){
+        Player player = playerService.getOne(playerId);
 //        List<AtpRankingPosition> playersAtpRanking = atpRankingPositionService.getAllByPlayerId(playerId);
-//        return new PlayerDTO(player, playersAtpRanking);
-//    }
+        return player;
+    }
 
     @RequestMapping(value = "/{playerId}", method = RequestMethod.GET)
     public Player getOnePlayer(@PathVariable int playerId){

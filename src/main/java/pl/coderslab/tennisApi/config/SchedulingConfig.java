@@ -14,7 +14,7 @@ public class SchedulingConfig implements SchedulingConfigurer {
     @Bean
     public ThreadPoolTaskScheduler getScheduler(){
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-        scheduler.setPoolSize(1);
+        scheduler.setPoolSize(3);
         scheduler.setThreadNamePrefix("AutoEventResolverThreadPool-");
         scheduler.initialize();
         return scheduler;

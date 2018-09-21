@@ -22,7 +22,7 @@ public class Player {
     private String name;
     private String surname;
     @Enumerated(EnumType.STRING)
-    private Country countryCode;
+    private Country country;
     private LocalDate birthday;
 }
 
