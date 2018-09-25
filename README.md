@@ -6,11 +6,11 @@ The app gives you a chance to create and run your own tennis match, as you would
 
 Used technologies:
 
--Spring Boot
--Hibernate
--MySQL
--Asyncronized and scheduled methods
--REST API
--in the closest future JMS is planned to be deployed
+- Spring Boot
+- Hibernate
+- MySQL
+- Asyncronized and scheduled methods
+- REST API
+- in the closest future JMS is planned to be deployed
 
 Project shall be functionning properly after creating "tennis_atp_datasource" database and import.sql data will be auto-uploaded (what is guaranteed in application.properties file). If not please run the import.sql scripts for basic data coverage
